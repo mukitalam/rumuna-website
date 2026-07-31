@@ -1,24 +1,25 @@
-import Navbar from "../components/Navbar";
-import Hero from "../components/Hero";
+import Navbar from "@/components/Navbar";
+import Hero from "@/components/Hero";
 import About from "@/components/About";
 import Stats from "@/components/Stats";
 import Conference from "@/components/Conference";
-import Executive from "@/components/Executive";
 import Events from "@/components/Events";
+import Executive from "@/components/Executive";
 import Gallery from "@/components/Gallery";
-
+import Footer from "@/components/Footer";
 
 export default function Home() {
   return (
-    <main className="min-h-screen bg-[#081C3A] text-white">
+    <main className="min-h-screen overflow-x-hidden bg-white">
       <Navbar />
       <Hero />
       <About />
       <Stats />
       <Conference />
-      <Executive />
       <Events />
+      <Executive />
       <Gallery />
+      <Footer />
     </main>
   );
 }

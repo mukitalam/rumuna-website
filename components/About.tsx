@@ -1,84 +1,95 @@
-"use client";
+import Image from "next/image";
+import Link from "next/link";
+import { FiArrowRight, FiCheckCircle } from "react-icons/fi";
 
-import { motion } from "framer-motion";
-import { FaGlobeAsia, FaUsers, FaHandshake } from "react-icons/fa";
+const highlights = [
+  "Leadership and diplomatic skills",
+  "Critical thinking and negotiation",
+  "Public speaking and teamwork",
+  "International affairs and global awareness",
+];
 
 export default function About() {
   return (
-    <section className="bg-white py-24">
-      <div className="max-w-7xl mx-auto px-6">
+    <section id="about" className="bg-[#F8FAFC] py-20 lg:py-28">
+      <div className="mx-auto grid max-w-7xl items-center gap-14 px-5 lg:grid-cols-2 lg:px-8">
+        {/* Image */}
+        <div className="relative">
+          <div className="relative h-[420px] overflow-hidden rounded-sm shadow-2xl sm:h-[520px]">
+            <Image
+              src="/session.jpg"
+              alt="RUMUNA diplomatic session"
+              fill
+              className="object-cover"
+            />
 
-        <motion.div
-          initial={{ opacity: 0, y: 40 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: .8 }}
-          viewport={{ once: true }}
-          className="text-center"
-        >
-          <h2 className="text-5xl font-bold text-[#0A2342]">
-            About <span className="text-[#D4AF37]">RUMUNA</span>
+            <div className="absolute inset-0 bg-gradient-to-t from-[#081C3A]/60 to-transparent" />
+          </div>
+
+          <div className="absolute -bottom-7 -right-3 w-[220px] border-l-4 border-[#D4AF37] bg-[#081C3A] p-6 text-white shadow-xl sm:-right-7 sm:w-[260px]">
+            <p className="font-serif text-4xl font-bold text-[#D4AF37]">
+              RUMUNA
+            </p>
+
+            <p className="mt-2 text-sm leading-6 text-white/75">
+              Inspiring young leaders through diplomacy, dialogue and global
+              cooperation.
+            </p>
+          </div>
+
+          <div className="absolute -left-4 -top-4 -z-10 h-full w-full border border-[#D4AF37]/40" />
+        </div>
+
+        {/* Content */}
+        <div className="pt-8 lg:pl-8 lg:pt-0">
+          <div className="flex items-center gap-3">
+            <span className="h-[2px] w-10 bg-[#D4AF37]" />
+
+            <p className="text-sm font-bold uppercase tracking-[0.2em] text-[#A77D00]">
+              About RUMUNA
+            </p>
+          </div>
+
+          <h2 className="mt-5 font-serif text-3xl font-bold leading-tight text-[#081C3A] sm:text-4xl lg:text-5xl">
+            Shaping Future Leaders Through
+            <span className="block text-[#B38B16]">
+              Diplomacy and Dialogue
+            </span>
           </h2>
 
-          <div className="w-24 h-1 bg-[#D4AF37] mx-auto mt-4 rounded-full"></div>
-
-          <p className="mt-8 text-gray-600 text-lg max-w-4xl mx-auto leading-9">
-            Rajshahi University Model United Nations Association (RUMUNA)
-            is dedicated to nurturing future diplomats, policymakers and
-            responsible global citizens through debate, diplomacy,
-            negotiation and leadership.
+          <p className="mt-6 text-base leading-8 text-slate-600">
+            Rajshahi University Model United Nations Association is a
+            student-led organization dedicated to developing diplomacy,
+            leadership, negotiation and public-speaking skills among young
+            people.
           </p>
-        </motion.div>
 
-        <div className="grid md:grid-cols-3 gap-8 mt-20">
+          <p className="mt-4 text-base leading-8 text-slate-600">
+            Through conferences, workshops and interactive sessions, RUMUNA
+            creates opportunities for students to understand international
+            affairs and participate in meaningful global dialogue.
+          </p>
 
-          <motion.div
-            whileHover={{ y: -8 }}
-            className="bg-gray-50 rounded-3xl shadow-lg p-8 text-center"
+          <div className="mt-7 grid gap-4 sm:grid-cols-2">
+            {highlights.map((item) => (
+              <div key={item} className="flex items-start gap-3">
+                <FiCheckCircle className="mt-1 shrink-0 text-xl text-[#B38B16]" />
+
+                <p className="text-sm font-medium leading-6 text-[#24364D]">
+                  {item}
+                </p>
+              </div>
+            ))}
+          </div>
+
+          <Link
+            href="#conference"
+            className="group mt-9 inline-flex items-center gap-3 bg-[#081C3A] px-7 py-4 text-sm font-bold uppercase tracking-[0.1em] text-white transition hover:bg-[#D4AF37] hover:text-[#081C3A]"
           >
-            <FaGlobeAsia className="text-5xl mx-auto text-[#D4AF37]" />
+            Learn More About Us
 
-            <h3 className="text-2xl font-bold mt-6 text-[#0A2342]">
-              Global Perspective
-            </h3>
-
-            <p className="text-gray-600 mt-4">
-              Understanding international affairs through Model United Nations.
-            </p>
-
-          </motion.div>
-
-          <motion.div
-            whileHover={{ y: -8 }}
-            className="bg-gray-50 rounded-3xl shadow-lg p-8 text-center"
-          >
-            <FaUsers className="text-5xl mx-auto text-[#D4AF37]" />
-
-            <h3 className="text-2xl font-bold mt-6 text-[#0A2342]">
-              Leadership
-            </h3>
-
-            <p className="text-gray-600 mt-4">
-              Developing confident leaders through teamwork and collaboration.
-            </p>
-
-          </motion.div>
-
-          <motion.div
-            whileHover={{ y: -8 }}
-            className="bg-gray-50 rounded-3xl shadow-lg p-8 text-center"
-          >
-            <FaHandshake className="text-5xl mx-auto text-[#D4AF37]" />
-
-            <h3 className="text-2xl font-bold mt-6 text-[#0A2342]">
-              Diplomacy
-            </h3>
-
-            <p className="text-gray-600 mt-4">
-              Building negotiation skills for solving global challenges.
-            </p>
-
-          </motion.div>
-
+            <FiArrowRight className="transition-transform group-hover:translate-x-1" />
+          </Link>
         </div>
       </div>
     </section>
