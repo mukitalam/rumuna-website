@@ -2,8 +2,13 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { motion } from "framer-motion";
-import { FiArrowRight, FiFacebook, FiLinkedin, FiMail } from "react-icons/fi";
+import { motion, useReducedMotion } from "framer-motion";
+import {
+  FiArrowRight,
+  FiFacebook,
+  FiLinkedin,
+  FiMail,
+} from "react-icons/fi";
 
 const executives = [
   {
@@ -41,149 +46,459 @@ const executives = [
 ];
 
 export default function Executive() {
+  const shouldReduceMotion = useReducedMotion();
+
   return (
     <section
       id="governing-body"
-      className="relative overflow-hidden bg-white py-20 lg:py-28"
+      aria-labelledby="governing-body-heading"
+      className="
+        section-padding relative overflow-hidden
+        bg-white
+      "
     >
-      {/* Decorative elements */}
-      <div className="absolute left-0 top-0 h-40 w-40 border-b border-r border-[#D4AF37]/15" />
+      {/* Decorative background */}
+      <div
+        aria-hidden="true"
+        className="
+          absolute -left-44 top-16
+          h-[400px] w-[400px] rounded-full
+          bg-[#C8A443]/[0.07] blur-3xl
+        "
+      />
 
-      <div className="absolute bottom-0 right-0 h-56 w-56 border-l border-t border-[#D4AF37]/15" />
+      <div
+        aria-hidden="true"
+        className="
+          absolute -right-48 bottom-10
+          h-[450px] w-[450px] rounded-full
+          bg-[#173B68]/[0.06] blur-3xl
+        "
+      />
 
-      <div className="relative mx-auto max-w-7xl px-5 lg:px-8">
+      <div
+        aria-hidden="true"
+        className="
+          absolute left-0 top-0
+          h-36 w-36 border-b border-r
+          border-[#C8A443]/20
+          sm:h-48 sm:w-48
+        "
+      />
+
+      <div
+        aria-hidden="true"
+        className="
+          absolute bottom-0 right-0
+          h-44 w-44 border-l border-t
+          border-[#C8A443]/20
+          sm:h-60 sm:w-60
+        "
+      />
+
+      <div className="section-container relative z-10">
         {/* Section heading */}
         <div className="mx-auto max-w-3xl text-center">
           <div className="flex items-center justify-center gap-3">
-            <span className="h-[2px] w-10 bg-[#D4AF37]" />
+            <span
+              aria-hidden="true"
+              className="
+                h-[2px] w-10
+                bg-gradient-to-r
+                from-transparent to-[#C8A443]
+              "
+            />
 
-            <p className="text-sm font-bold uppercase tracking-[0.2em] text-[#A77D00]">
+            <p
+              className="
+                text-xs font-bold uppercase
+                tracking-[0.22em] text-[#9F7B20]
+                sm:text-sm
+              "
+            >
               Governing Body
             </p>
 
-            <span className="h-[2px] w-10 bg-[#D4AF37]" />
+            <span
+              aria-hidden="true"
+              className="
+                h-[2px] w-10
+                bg-gradient-to-r
+                from-[#C8A443] to-transparent
+              "
+            />
           </div>
 
-          <h2 className="mt-5 font-serif text-3xl font-bold leading-tight text-[#081C3A] sm:text-4xl lg:text-5xl">
-            Meet the Leaders Behind
-            <span className="block text-[#B38B16]">Our Vision</span>
+          <h2
+            id="governing-body-heading"
+            className="
+              mt-5 font-serif text-4xl
+              font-bold leading-[1.08]
+              text-[#071A33]
+              sm:text-5xl lg:text-[56px]
+            "
+          >
+            Meet the Leaders Behind{" "}
+            <span className="gold-gradient-text block sm:inline">
+              Our Vision
+            </span>
           </h2>
 
-          <p className="mx-auto mt-5 max-w-2xl leading-7 text-slate-600">
-            Our executive committee works with dedication to promote
-            leadership, diplomacy and meaningful global engagement among
-            students.
+          <p
+            className="
+              mx-auto mt-6 max-w-2xl
+              text-[15px] leading-7
+              text-slate-600
+              sm:text-base sm:leading-8
+            "
+          >
+            Our executive committee promotes leadership, diplomacy and
+            meaningful global engagement while guiding the association
+            with responsibility and purpose.
           </p>
         </div>
 
         {/* Executive cards */}
-        <div className="mt-14 grid gap-7 sm:grid-cols-2 lg:grid-cols-4">
-          {executives.map((member, index) => (
-            <motion.article
-              key={`${member.name}-${member.position}`}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.2 }}
-              transition={{ duration: 0.55, delay: index * 0.12 }}
-              className="group relative overflow-hidden bg-[#F8FAFC] shadow-lg transition duration-300 hover:-translate-y-2 hover:shadow-2xl"
-            >
-              {/* Member image */}
-              <div className="relative h-[340px] overflow-hidden bg-slate-200">
-                <Image
-                  src={member.image}
-                  alt={`${member.name} - ${member.position}`}
-                  fill
-                  className="object-cover object-top transition duration-700 group-hover:scale-105"
-                />
+        <div
+          className="
+            mt-12 grid gap-7
+            sm:grid-cols-2
+            lg:mt-16 lg:grid-cols-4
+          "
+        >
+          {executives.map((member, index) => {
+            const socialLinks = [
+              {
+                label: `Email ${member.name}`,
+                href: member.email,
+                icon: FiMail,
+                external: false,
+              },
+              {
+                label: `${member.name} on Facebook`,
+                href: member.facebook,
+                icon: FiFacebook,
+                external: true,
+              },
+              {
+                label: `${member.name} on LinkedIn`,
+                href: member.linkedin,
+                icon: FiLinkedin,
+                external: true,
+              },
+            ];
 
-                <div className="absolute inset-0 bg-gradient-to-t from-[#081C3A]/90 via-[#081C3A]/5 to-transparent" />
+            return (
+              <motion.article
+                key={`${member.name}-${member.position}`}
+                initial={
+                  shouldReduceMotion
+                    ? false
+                    : { opacity: 0, y: 30 }
+                }
+                whileInView={
+                  shouldReduceMotion
+                    ? undefined
+                    : { opacity: 1, y: 0 }
+                }
+                viewport={{ once: true, amount: 0.15 }}
+                transition={{
+                  duration: 0.55,
+                  delay: shouldReduceMotion ? 0 : index * 0.12,
+                  ease: "easeOut",
+                }}
+                className="
+                  group relative overflow-hidden
+                  border border-slate-200/80
+                  bg-[#F8FAFC]
+                  shadow-[0_12px_35px_rgba(7,26,51,0.07)]
+                  transition-all duration-500
+                  hover:-translate-y-2
+                  hover:border-[#C8A443]/45
+                  hover:shadow-[0_25px_60px_rgba(7,26,51,0.15)]
+                "
+              >
+                {/* Member image */}
+                <div
+                  className="
+                    relative h-[330px]
+                    overflow-hidden bg-slate-200
+                    sm:h-[350px]
+                  "
+                >
+                  <Image
+                    src={member.image}
+                    alt={`${member.name}, ${member.position} of RUMUNA`}
+                    fill
+                    sizes="
+                      (max-width: 640px) 100vw,
+                      (max-width: 1024px) 50vw,
+                      25vw
+                    "
+                    className="
+                      object-cover object-top
+                      transition-transform duration-1000
+                      ease-out group-hover:scale-[1.06]
+                    "
+                  />
 
-                {/* Social links */}
-                <div className="absolute bottom-5 left-0 flex w-full translate-y-5 justify-center gap-2 opacity-0 transition duration-300 group-hover:translate-y-0 group-hover:opacity-100">
-                  <Link
-                    href={member.email}
-                    aria-label={`Email ${member.name}`}
-                    className="flex h-10 w-10 items-center justify-center bg-white text-[#081C3A] transition hover:bg-[#D4AF37]"
+                  <div
+                    aria-hidden="true"
+                    className="
+                      absolute inset-0
+                      bg-gradient-to-t
+                      from-[#041126]/95
+                      via-[#071A33]/15
+                      to-transparent
+                    "
+                  />
+
+                  {/* Member number */}
+                  <span
+                    aria-hidden="true"
+                    className="
+                      absolute right-5 top-5
+                      font-serif text-4xl
+                      font-bold text-white/25
+                    "
                   >
-                    <FiMail />
-                  </Link>
+                    {String(index + 1).padStart(2, "0")}
+                  </span>
 
-                  <Link
-                    href={member.facebook}
-                    aria-label={`${member.name} Facebook profile`}
-                    className="flex h-10 w-10 items-center justify-center bg-white text-[#081C3A] transition hover:bg-[#D4AF37]"
+                  {/* Social links */}
+                  <div
+                    className="
+                      absolute bottom-5 left-0
+                      flex w-full justify-center gap-2
+                      opacity-100
+                      transition-all duration-300
+                      sm:translate-y-4 sm:opacity-0
+                      sm:group-hover:translate-y-0
+                      sm:group-hover:opacity-100
+                      sm:group-focus-within:translate-y-0
+                      sm:group-focus-within:opacity-100
+                    "
                   >
-                    <FiFacebook />
-                  </Link>
+                    {socialLinks.map((social) => {
+                      const Icon = social.icon;
 
-                  <Link
-                    href={member.linkedin}
-                    aria-label={`${member.name} LinkedIn profile`}
-                    className="flex h-10 w-10 items-center justify-center bg-white text-[#081C3A] transition hover:bg-[#D4AF37]"
-                  >
-                    <FiLinkedin />
-                  </Link>
+                      /*
+                       * Links containing "#" are placeholders.
+                       * They are kept visually disabled until real URLs
+                       * are added to the executives array.
+                       */
+                      if (social.href === "#") {
+                        return (
+                          <span
+                            key={social.label}
+                            aria-label={`${social.label} link unavailable`}
+                            className="
+                              flex h-11 w-11
+                              cursor-not-allowed
+                              items-center justify-center
+                              border border-white/15
+                              bg-white/70 text-[#071A33]/40
+                            "
+                          >
+                            <Icon aria-hidden="true" />
+                          </span>
+                        );
+                      }
+
+                      return (
+                        <a
+                          key={social.label}
+                          href={social.href}
+                          aria-label={social.label}
+                          target={
+                            social.external ? "_blank" : undefined
+                          }
+                          rel={
+                            social.external
+                              ? "noopener noreferrer"
+                              : undefined
+                          }
+                          className="
+                            flex h-11 w-11
+                            items-center justify-center
+                            border border-white/30
+                            bg-white text-lg text-[#071A33]
+                            shadow-md
+                            transition-all duration-300
+                            hover:-translate-y-1
+                            hover:border-[#C8A443]
+                            hover:bg-[#C8A443]
+                            focus-visible:outline
+                            focus-visible:outline-2
+                            focus-visible:outline-offset-2
+                            focus-visible:outline-[#E2C66E]
+                          "
+                        >
+                          <Icon aria-hidden="true" />
+                        </a>
+                      );
+                    })}
+                  </div>
                 </div>
-              </div>
 
-              {/* Member information */}
-              <div className="relative border-b-4 border-[#D4AF37] px-5 py-6 text-center">
-                <div className="absolute right-0 top-0 h-10 w-10 border-b border-l border-[#D4AF37]/30" />
+                {/* Member information */}
+                <div
+                  className="
+                    relative border-b-4
+                    border-[#C8A443]
+                    px-5 py-6 text-center
+                  "
+                >
+                  <div
+                    aria-hidden="true"
+                    className="
+                      absolute right-0 top-0
+                      h-12 w-12 border-b border-l
+                      border-[#C8A443]/30
+                    "
+                  />
 
-                <p className="text-xs font-bold uppercase tracking-[0.17em] text-[#A77D00]">
-                  {member.position}
-                </p>
+                  <p
+                    className="
+                      relative text-[10px]
+                      font-extrabold uppercase
+                      tracking-[0.17em]
+                      text-[#9F7B20]
+                      sm:text-xs
+                    "
+                  >
+                    {member.position}
+                  </p>
 
-                <h3 className="mt-2 font-serif text-xl font-bold text-[#081C3A]">
-                  {member.name}
-                </h3>
-              </div>
-            </motion.article>
-          ))}
+                  <h3
+                    className="
+                      relative mt-2 font-serif
+                      text-xl font-bold
+                      text-[#071A33]
+                      transition-colors duration-300
+                      group-hover:text-[#9F7B20]
+                    "
+                  >
+                    {member.name}
+                  </h3>
+                </div>
+              </motion.article>
+            );
+          })}
         </div>
 
         {/* Committee button */}
-        <div className="mt-12 text-center">
+        <div className="mt-10 text-center sm:mt-12">
           <Link
-            href="#full-committee"
-            className="group inline-flex items-center justify-center gap-3 bg-[#081C3A] px-7 py-4 text-sm font-bold uppercase tracking-[0.1em] text-white transition hover:bg-[#D4AF37] hover:text-[#081C3A]"
+            href="#leadership-statement"
+            className="
+              formal-button group
+              inline-flex min-h-12
+              items-center justify-center gap-3
+              px-7 py-3.5 text-xs
+              font-bold uppercase
+              tracking-[0.11em]
+              sm:text-[13px]
+            "
           >
-            View Full Committee
+            Explore Our Leadership
 
-            <FiArrowRight className="transition-transform group-hover:translate-x-1" />
+            <FiArrowRight
+              aria-hidden="true"
+              className="
+                text-base transition-transform
+                duration-300
+                group-hover:translate-x-1.5
+              "
+            />
           </Link>
         </div>
 
         {/* Leadership statement */}
         <div
-          id="full-committee"
-          className="mt-16 grid overflow-hidden bg-[#081C3A] lg:grid-cols-[0.7fr_1.3fr]"
+          id="leadership-statement"
+          className="
+            relative mt-14 scroll-mt-28
+            overflow-hidden bg-[#071A33]
+            shadow-[0_25px_65px_rgba(7,26,51,0.2)]
+            lg:mt-16
+            lg:grid lg:grid-cols-[0.7fr_1.3fr]
+          "
         >
-          <div className="flex items-center justify-center bg-[#D4AF37] p-8 text-center lg:p-10">
+          <div
+            aria-hidden="true"
+            className="
+              absolute -right-20 -top-24
+              h-64 w-64 rounded-full
+              border border-[#C8A443]/15
+            "
+          />
+
+          <div
+            className="
+              relative flex items-center
+              justify-center bg-[#C8A443]
+              p-8 text-center
+              sm:p-10 lg:p-12
+            "
+          >
             <div>
-              <p className="font-serif text-5xl font-bold text-[#081C3A]">
+              <p
+                className="
+                  font-serif text-5xl
+                  font-bold text-[#071A33]
+                  sm:text-6xl
+                "
+              >
                 Lead
               </p>
 
-              <p className="mt-2 text-sm font-bold uppercase tracking-[0.2em] text-[#081C3A]/70">
+              <p
+                className="
+                  mt-2 text-xs font-bold
+                  uppercase tracking-[0.22em]
+                  text-[#071A33]/70
+                  sm:text-sm
+                "
+              >
                 With Purpose
               </p>
             </div>
           </div>
 
-          <div className="p-8 sm:p-10">
-            <p className="text-xs font-bold uppercase tracking-[0.2em] text-[#D4AF37]">
+          <div className="relative p-7 sm:p-10 lg:p-12">
+            <p
+              className="
+                text-[11px] font-bold uppercase
+                tracking-[0.22em] text-[#E2C66E]
+                sm:text-xs
+              "
+            >
               Leadership at RUMUNA
             </p>
 
-            <h3 className="mt-3 font-serif text-2xl font-bold text-white sm:text-3xl">
-              Building a responsible generation of global citizens
+            <h3
+              className="
+                mt-3 max-w-3xl font-serif
+                text-2xl font-bold leading-tight
+                text-white
+                sm:text-3xl lg:text-4xl
+              "
+            >
+              Building a Responsible Generation of Global Citizens
             </h3>
 
-            <p className="mt-4 max-w-3xl text-sm leading-7 text-white/65">
-              Our governing body creates opportunities for members to learn,
-              collaborate and contribute through conferences, workshops and
-              diplomatic initiatives.
+            <p
+              className="
+                mt-4 max-w-3xl text-sm
+                leading-7 text-white/65
+                sm:text-[15px]
+              "
+            >
+              Our governing body creates opportunities for members to
+              learn, collaborate and contribute through conferences,
+              workshops, diplomatic initiatives and meaningful
+              community engagement.
             </p>
           </div>
         </div>
