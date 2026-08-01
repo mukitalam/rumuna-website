@@ -6,9 +6,26 @@ import { motion, useReducedMotion } from "framer-motion";
 import {
   FiArrowDown,
   FiArrowRight,
-  FiCalendar,
-  FiMapPin,
 } from "react-icons/fi";
+
+const rumunaStats = [
+  {
+    number: "12",
+    label: "Years of Legacy",
+  },
+  {
+    number: "20+",
+    label: "Conferences Organized",
+  },
+  {
+    number: "2000+",
+    label: "Delegates Empowered",
+  },
+  {
+    number: "15+",
+    label: "Partner Organizations",
+  },
+];
 
 const heroHighlights = [
   {
@@ -29,8 +46,18 @@ export default function Hero() {
   const shouldReduceMotion = useReducedMotion();
 
   const animation = (delay: number, y = 24) => ({
-    initial: shouldReduceMotion ? false : { opacity: 0, y },
-    animate: shouldReduceMotion ? undefined : { opacity: 1, y: 0 },
+    initial: shouldReduceMotion
+      ? false
+      : {
+          opacity: 0,
+          y,
+        },
+    animate: shouldReduceMotion
+      ? undefined
+      : {
+          opacity: 1,
+          y: 0,
+        },
     transition: {
       duration: 0.7,
       delay: shouldReduceMotion ? 0 : delay,
@@ -43,10 +70,10 @@ export default function Hero() {
       id="home"
       aria-labelledby="hero-heading"
       className="
-        relative flex min-h-screen
+        relative flex min-h-[100svh]
         scroll-mt-20 items-center
         overflow-hidden bg-[#071A33]
-        pt-[82px] md:pb-[92px]
+        pt-[76px] md:pt-[88px]
       "
     >
       {/* Background image */}
@@ -59,7 +86,7 @@ export default function Hero() {
         className="object-cover object-center"
       />
 
-      {/* Background overlays */}
+      {/* Dark background overlay */}
       <div
         aria-hidden="true"
         className="
@@ -71,22 +98,34 @@ export default function Hero() {
         "
       />
 
+      {/* Bottom overlay */}
       <div
         aria-hidden="true"
         className="
           absolute inset-0
           bg-gradient-to-t
-          from-[#031022]/90
+          from-[#031022]/95
           via-transparent
           to-[#031022]/35
         "
       />
 
+      {/* Golden light */}
       <div
         aria-hidden="true"
         className="
           absolute inset-0
-          bg-[radial-gradient(circle_at_70%_35%,rgba(200,164,67,0.12),transparent_36%)]
+          bg-[radial-gradient(circle_at_72%_35%,rgba(200,164,67,0.14),transparent_36%)]
+        "
+      />
+
+      {/* Subtle glossy overlay */}
+      <div
+        aria-hidden="true"
+        className="
+          absolute inset-x-0 top-0 h-[45%]
+          bg-gradient-to-b
+          from-white/[0.035] to-transparent
         "
       />
 
@@ -96,7 +135,8 @@ export default function Hero() {
         className="
           absolute -right-40 top-20
           h-[500px] w-[500px]
-          rounded-full border border-[#C8A443]/10
+          rounded-full
+          border border-[#C8A443]/10
         "
       />
 
@@ -105,7 +145,8 @@ export default function Hero() {
         className="
           absolute -right-20 top-40
           h-[320px] w-[320px]
-          rounded-full border border-[#C8A443]/20
+          rounded-full
+          border border-[#C8A443]/20
         "
       />
 
@@ -122,18 +163,22 @@ export default function Hero() {
       <div
         className="
           section-container relative z-10
-          w-full py-20 sm:py-24
-          lg:py-28
+          w-full pb-20 pt-16
+          sm:pb-24 sm:pt-20
+          md:pb-[150px]
+          lg:pt-24
         "
       >
-        <div className="max-w-4xl">
+        <div className="max-w-5xl">
+          {/* Small heading */}
           <motion.div
             {...animation(0)}
             className="
               mb-7 inline-flex
               items-center gap-3
               border-l-2 border-[#C8A443]
-              bg-white/[0.06] px-4 py-2.5
+              bg-white/[0.06]
+              px-4 py-2.5
               backdrop-blur-md
             "
           >
@@ -147,8 +192,8 @@ export default function Hero() {
 
             <p
               className="
-                text-[10px] font-bold
-                uppercase tracking-[0.18em]
+                text-[10px] font-bold uppercase
+                tracking-[0.18em]
                 text-[#E2C66E]
                 sm:text-xs sm:tracking-[0.22em]
               "
@@ -157,6 +202,7 @@ export default function Hero() {
             </p>
           </motion.div>
 
+          {/* Main heading */}
           <motion.h1
             id="hero-heading"
             {...animation(0.15, 32)}
@@ -164,11 +210,13 @@ export default function Hero() {
               max-w-4xl font-serif
               text-4xl font-bold
               leading-[1.08] text-white
-              sm:text-5xl md:text-6xl
+              sm:text-5xl
+              md:text-6xl
               lg:text-[72px]
             "
           >
             Empowering the
+
             <span
               className="
                 mt-1 block
@@ -183,6 +231,7 @@ export default function Hero() {
             </span>
           </motion.h1>
 
+          {/* Description */}
           <motion.p
             {...animation(0.3)}
             className="
@@ -192,75 +241,93 @@ export default function Hero() {
               sm:text-lg sm:leading-8
             "
           >
-            Rajshahi University Model United Nations Association provides a
-            distinguished platform for young leaders to develop diplomacy,
-            negotiation, public speaking and critical-thinking skills.
+            Rajshahi University Model United Nations Association
+            provides a distinguished platform for young leaders to
+            develop diplomacy, negotiation, public speaking and
+            critical-thinking skills.
           </motion.p>
 
-          {/* Conference details */}
+          {/* RUMUNA achievements */}
           <motion.div
             {...animation(0.45)}
             className="
-              mt-8 flex flex-col
-              gap-4 text-sm text-white/75
-              sm:flex-row sm:flex-wrap
-              sm:gap-x-8
+              mt-9 grid w-full
+              max-w-[960px] grid-cols-2
+              gap-3 sm:gap-4
+              lg:grid-cols-4
             "
           >
-            <div className="flex items-center gap-3">
-              <span
+            {rumunaStats.map((stat) => (
+              <div
+                key={stat.label}
                 className="
-                  flex h-10 w-10 shrink-0
-                  items-center justify-center
+                  group relative min-h-[112px]
+                  overflow-hidden
                   border border-[#C8A443]/30
-                  bg-[#C8A443]/10
-                  text-[#E2C66E]
+                  bg-white/[0.055]
+                  px-4 py-5
+                  backdrop-blur-md
+                  transition-all duration-300
+                  hover:-translate-y-1
+                  hover:border-[#C8A443]/70
+                  hover:bg-white/[0.09]
+                  hover:shadow-[0_15px_35px_rgba(0,0,0,0.18)]
                 "
               >
-                <FiCalendar aria-hidden="true" />
-              </span>
+                {/* Top golden reflection */}
+                <span
+                  aria-hidden="true"
+                  className="
+                    absolute inset-x-0 top-0 h-px
+                    bg-gradient-to-r
+                    from-transparent
+                    via-[#E2C66E]/80
+                    to-transparent
+                  "
+                />
 
-              <div>
-                <p className="text-[10px] uppercase tracking-[0.16em] text-white/45">
-                  Conference
+                {/* Corner decoration */}
+                <span
+                  aria-hidden="true"
+                  className="
+                    absolute -right-5 -top-5
+                    h-14 w-14 rotate-45
+                    border border-[#C8A443]/15
+                  "
+                />
+
+                <p
+                  className="
+                    font-serif text-[28px]
+                    font-bold leading-none
+                    text-[#E2C66E]
+                    sm:text-[32px]
+                  "
+                >
+                  {stat.number}
                 </p>
 
-                <p className="mt-0.5 font-semibold">
-                  NBMUN Season V · 2026
+                <p
+                  className="
+                    mt-2.5 max-w-[160px]
+                    text-[9px] font-semibold
+                    uppercase leading-[1.5]
+                    tracking-[0.11em]
+                    text-white/75
+                    sm:text-[10px]
+                  "
+                >
+                  {stat.label}
                 </p>
               </div>
-            </div>
-
-            <div className="flex items-center gap-3">
-              <span
-                className="
-                  flex h-10 w-10 shrink-0
-                  items-center justify-center
-                  border border-[#C8A443]/30
-                  bg-[#C8A443]/10
-                  text-[#E2C66E]
-                "
-              >
-                <FiMapPin aria-hidden="true" />
-              </span>
-
-              <div>
-                <p className="text-[10px] uppercase tracking-[0.16em] text-white/45">
-                  Location
-                </p>
-
-                <p className="mt-0.5 font-semibold">
-                  University of Rajshahi, Bangladesh
-                </p>
-              </div>
-            </div>
+            ))}
           </motion.div>
 
           {/* Action buttons */}
           <motion.div
             {...animation(0.6)}
             className="
-              mt-10 flex flex-col
+              mt-9 flex flex-col
               gap-4 sm:flex-row
             "
           >
@@ -268,21 +335,21 @@ export default function Hero() {
               href="#register"
               className="
                 formal-button group
-                inline-flex min-h-12
+                inline-flex min-h-[54px]
                 items-center justify-center
-                gap-3 px-7 py-3.5
+                gap-3 px-8 py-3.5
                 text-xs font-bold uppercase
                 tracking-[0.12em]
                 sm:text-[13px]
               "
             >
-              Register Now
+              <span>Register Now</span>
 
               <FiArrowRight
                 aria-hidden="true"
                 className="
-                  text-base transition-transform
-                  duration-300
+                  text-base
+                  transition-transform duration-300
                   group-hover:translate-x-1.5
                 "
               />
@@ -291,25 +358,37 @@ export default function Hero() {
             <Link
               href="#about"
               className="
-                inline-flex min-h-12
+                group inline-flex min-h-[54px]
                 items-center justify-center
-                border border-white/30
-                bg-white/[0.05] px-7 py-3.5
+                gap-3 border border-white/40
+                bg-white/[0.08]
+                px-8 py-3.5
                 text-xs font-bold uppercase
-                tracking-[0.12em] text-white
-                backdrop-blur-sm
+                tracking-[0.12em]
+                !text-white
+                backdrop-blur-md
                 transition-all duration-300
                 hover:border-[#C8A443]
-                hover:bg-[#C8A443]/10
-                hover:text-[#E2C66E]
-                focus-visible:outline
-                focus-visible:outline-2
-                focus-visible:outline-offset-4
-                focus-visible:outline-[#E2C66E]
+                hover:bg-[#C8A443]
+                hover:!text-[#071A33]
+                focus-visible:outline-none
+                focus-visible:ring-2
+                focus-visible:ring-[#E2C66E]
+                focus-visible:ring-offset-4
+                focus-visible:ring-offset-[#071A33]
                 sm:text-[13px]
               "
             >
-              Discover RUMUNA
+              <span>Discover RUMUNA</span>
+
+              <FiArrowRight
+                aria-hidden="true"
+                className="
+                  text-base
+                  transition-transform duration-300
+                  group-hover:translate-x-1.5
+                "
+              />
             </Link>
           </motion.div>
         </div>
@@ -317,8 +396,20 @@ export default function Hero() {
 
       {/* Scroll indicator */}
       <motion.div
-        initial={shouldReduceMotion ? false : { opacity: 0 }}
-        animate={shouldReduceMotion ? undefined : { opacity: 1 }}
+        initial={
+          shouldReduceMotion
+            ? false
+            : {
+                opacity: 0,
+              }
+        }
+        animate={
+          shouldReduceMotion
+            ? undefined
+            : {
+                opacity: 1,
+              }
+        }
         transition={{
           duration: 0.7,
           delay: shouldReduceMotion ? 0 : 1,
@@ -334,7 +425,8 @@ export default function Hero() {
           className="
             group flex flex-col
             items-center gap-3
-            text-white/50 transition-colors
+            text-white/50
+            transition-colors duration-300
             hover:text-[#E2C66E]
           "
         >
@@ -358,14 +450,15 @@ export default function Hero() {
         </Link>
       </motion.div>
 
-      {/* Desktop highlights */}
+      {/* Desktop bottom highlights */}
       <div
         className="
-          absolute bottom-0 left-0
-          z-10 hidden w-full
+          absolute bottom-0 left-0 z-10
+          hidden w-full
           border-t border-white/10
           bg-[#031022]/80
-          backdrop-blur-xl md:block
+          backdrop-blur-xl
+          md:block
         "
       >
         <div
@@ -387,8 +480,8 @@ export default function Hero() {
             >
               <p
                 className="
-                  text-[10px] font-bold
-                  uppercase tracking-[0.2em]
+                  text-[10px] font-bold uppercase
+                  tracking-[0.2em]
                   text-[#E2C66E]
                 "
               >
