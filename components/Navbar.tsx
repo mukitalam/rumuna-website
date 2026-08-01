@@ -329,7 +329,6 @@ export default function Navbar() {
                 text-white/60
               "
             >
-              Diplomacy • Leadership
             </p>
           </div>
         </Link>
