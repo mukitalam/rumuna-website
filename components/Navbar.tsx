@@ -302,11 +302,24 @@ export default function Navbar() {
           <div className="ml-3 sm:hidden">
             <p
               className="
-                font-serif text-[20px] font-bold
-                tracking-[0.15em] text-[#E2C66E]
+                font-serif text-[17px] font-semibold
+                uppercase leading-[1.2]
+                tracking-[0.075em] text-white
+                md:text-[19px]
               "
             >
-              RUMUNA
+              Rajshahi University
+            </p>
+
+            <p
+              className="
+                mt-1 font-serif text-[13px]
+                font-medium uppercase
+                leading-[1.25] tracking-[0.065em]
+                text-white/80 md:text-[15px]
+              "
+            >
+              Model United Nations Association
             </p>
 
             <p
