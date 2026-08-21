@@ -76,20 +76,20 @@ export default function Register() {
           transition={{ duration: 0.65, ease: "easeOut" }}
           className="mx-auto max-w-4xl text-center"
         >
-          {/* Section label */}
+      {/* Section label */}
           <div className="flex items-center justify-center gap-3">
             <span
               aria-hidden="true"
-              className="h-[2px] w-9 bg-gradient-to-r from-transparent to-[#C8A443]"
+              className="h-[2px] w-9 bg-gradient-to-r from-transparent to-[#3b82f6]"
             />
 
-            <p className="text-xs font-bold uppercase tracking-[0.22em] text-[#E2C66E] sm:text-sm">
+            <p className="text-xs font-bold uppercase tracking-[0.22em] text-[#93c5fd] sm:text-sm">
               Join RUMUNA
             </p>
 
             <span
               aria-hidden="true"
-              className="h-[2px] w-9 bg-gradient-to-r from-[#C8A443] to-transparent"
+              className="h-[2px] w-9 bg-gradient-to-r from-[#3b82f6] to-transparent"
             />
           </div>
 
@@ -99,7 +99,7 @@ export default function Register() {
             className="mt-5 font-serif text-4xl font-bold leading-tight text-white sm:text-5xl lg:text-[58px]"
           >
             Be Part of the{" "}
-            <span className="bg-gradient-to-r from-[#C8A443] via-[#E2C66E] to-[#C8A443] bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-[#93c5fd] via-[#3b82f6] to-[#60a5fa] bg-clip-text text-transparent">
               Diplomatic Journey
             </span>
           </h2>
@@ -158,9 +158,9 @@ export default function Register() {
                   delay: shouldReduceMotion ? 0 : index * 0.12,
                   ease: "easeOut",
                 }}
-                className="group bg-[#0B2342] p-7 text-center transition-colors duration-300 hover:bg-[#102B4E] sm:p-8"
+                className="group bg-[#172554] p-7 text-center transition-colors duration-300 hover:bg-[#1e3a8a] sm:p-8"
               >
-                <div className="mx-auto flex h-12 w-12 items-center justify-center border border-[#C8A443]/30 bg-[#C8A443]/10 text-xl text-[#E2C66E] transition-transform duration-300 group-hover:-translate-y-1">
+                <div className="mx-auto flex h-12 w-12 items-center justify-center border border-[#3b82f6]/30 bg-[#3b82f6]/10 text-xl text-[#93c5fd] transition-transform duration-300 group-hover:-translate-y-1">
                   <Icon aria-hidden="true" />
                 </div>
 

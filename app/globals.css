@@ -5,31 +5,43 @@
 ======================================== */
 
 :root {
+  /* Royal Blue Tonal System */
+  --royal-50: #eff6ff;
+  --royal-100: #dbeafe;
+  --royal-200: #bfdbfe;
+  --royal-300: #93c5fd;
+  --royal-400: #3b82f6;
+  --royal-500: #1d4ed8; /* Primary Royal Blue */
+  --royal-600: #1e40af; /* Deeper Royal Blue */
+  --royal-700: #1e3a8a; /* Dark Royal Blue */
+  --royal-800: #172554; /* Deep Midnight Royal */
+  --royal-900: #0b192e; /* Deepest Institutional Royal */
+
   --background: #f8fafc;
   --surface: #ffffff;
-  --surface-soft: #f1f5f9;
+  --surface-soft: #f0f5ff;
 
   --foreground: #0b1830;
-  --muted: #64748b;
+  --muted: #475569;
 
-  --navy: #071a33;
-  --navy-light: #102b4e;
-  --navy-soft: #173b68;
+  --navy: #0b192e;
+  --navy-light: #172554;
+  --navy-soft: #1e3a8a;
 
-  --gold: #c8a443;
-  --gold-light: #e2c66e;
-  --gold-dark: #9f7b20;
+  --gold: #b8912d;
+  --gold-light: #d4b254;
+  --gold-dark: #856314;
 
   --ivory: #fbf8ef;
-  --border: rgba(15, 35, 65, 0.12);
+  --border: rgba(30, 58, 138, 0.14);
 
   --header-height: 88px;
 
   --shadow-soft:
-    0 10px 35px rgba(7, 26, 51, 0.08);
+    0 10px 35px rgba(15, 25, 46, 0.08);
 
   --shadow-card:
-    0 18px 55px rgba(7, 26, 51, 0.13);
+    0 18px 55px rgba(29, 78, 216, 0.13);
 }
 
 @theme inline {
@@ -45,21 +57,20 @@
   --color-brand-gold-light: var(--gold-light);
   --color-brand-ivory: var(--ivory);
 
---font-sans:
-  var(--font-geist-sans),
-  Arial,
-  Helvetica,
-  sans-serif;
+  --color-royal-50: var(--royal-50);
+  --color-royal-100: var(--royal-100);
+  --color-royal-200: var(--royal-200);
+  --color-royal-300: var(--royal-300);
+  --color-royal-400: var(--royal-400);
+  --color-royal-500: var(--royal-500);
+  --color-royal-600: var(--royal-600);
+  --color-royal-700: var(--royal-700);
+  --color-royal-800: var(--royal-800);
+  --color-royal-900: var(--royal-900);
 
---font-serif:
-  var(--font-cormorant),
-  Georgia,
-  "Times New Roman",
-  serif;
-
---font-mono:
-  var(--font-geist-mono),
-  monospace;
+  --font-sans: var(--font-geist-sans), Arial, Helvetica, sans-serif;
+  --font-serif: var(--font-cormorant), Georgia, "Times New Roman", serif;
+  --font-mono: var(--font-geist-mono), monospace;
 }
 
 /* ========================================
@@ -82,16 +93,12 @@ body {
   background:
     radial-gradient(
       circle at 10% 0%,
-      rgba(200, 164, 67, 0.08),
+      rgba(59, 130, 246, 0.05),
       transparent 28rem
     ),
     var(--background);
   color: var(--foreground);
-  font-family:
-    var(--font-geist-sans),
-    Arial,
-    Helvetica,
-    sans-serif;
+  font-family: var(--font-geist-sans), Arial, Helvetica, sans-serif;
   line-height: 1.6;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
@@ -338,41 +345,39 @@ button {
    Premium text and button effects
 ======================================== */
 
-.gold-gradient-text {
+.royal-gradient-text {
   color: transparent;
   background: linear-gradient(
     110deg,
-    var(--gold-dark),
-    var(--gold-light),
-    var(--gold-dark)
+    var(--royal-700),
+    var(--royal-500),
+    var(--royal-600)
   );
   background-clip: text;
   -webkit-background-clip: text;
 }
 
-.gold-shimmer-text {
+.gold-gradient-text {
   color: transparent;
   background: linear-gradient(
-    90deg,
-    var(--gold-dark) 20%,
-    #fff1ae 45%,
-    var(--gold-light) 55%,
-    var(--gold-dark) 80%
+    110deg,
+    var(--royal-700),
+    var(--royal-500),
+    var(--royal-600)
   );
-  background-size: 200% auto;
   background-clip: text;
   -webkit-background-clip: text;
-  animation: goldShimmer 5s linear infinite;
 }
 
 .formal-button {
   position: relative;
   isolation: isolate;
   overflow: hidden;
-  border: 1px solid var(--gold);
-  background: var(--gold);
-  color: var(--navy);
-  box-shadow: 0 12px 30px rgba(159, 123, 32, 0.2);
+  border: 1px solid var(--royal-500);
+  background: var(--royal-500);
+  color: #ffffff;
+  font-weight: 600;
+  box-shadow: 0 10px 25px rgba(29, 78, 216, 0.25);
   transition:
     color 300ms ease,
     transform 300ms ease,
@@ -384,15 +389,16 @@ button {
   inset: 0;
   z-index: -1;
   content: "";
-  background: var(--navy);
+  background: var(--royal-700);
   transform: translateX(-102%);
   transition: transform 350ms cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .formal-button:hover {
   color: #ffffff;
-  box-shadow: 0 16px 38px rgba(7, 26, 51, 0.25);
-  transform: translateY(-3px);
+  border-color: var(--royal-600);
+  box-shadow: 0 14px 32px rgba(30, 58, 138, 0.35);
+  transform: translateY(-2px);
 }
 
 .formal-button:hover::before {

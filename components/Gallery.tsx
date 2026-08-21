@@ -2,52 +2,233 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import { useState } from "react";
 import { motion, useReducedMotion } from "framer-motion";
 import { FiArrowRight, FiMaximize2 } from "react-icons/fi";
 
 const galleryImages = [
   {
     src: "/gallery-1.jpg",
+    fallback: "/session.jpg",
     title: "Diplomatic Conference",
     category: "Conference",
     className: "md:col-span-2 md:row-span-2",
   },
   {
     src: "/gallery-2.jpg",
+    fallback: "/hero.jpg",
     title: "Committee Session",
     category: "Session",
     className: "",
   },
   {
     src: "/gallery-3.jpg",
+    fallback: "/nbmun.jpg",
     title: "Delegate Training",
     category: "Workshop",
     className: "",
   },
   {
     src: "/gallery-4.jpg",
+    fallback: "/event-1.jpg",
     title: "Award Ceremony",
     category: "Achievement",
     className: "",
   },
   {
     src: "/gallery-5.jpg",
+    fallback: "/executive-1.jpg",
     title: "Leadership Dialogue",
     category: "Dialogue",
     className: "",
   },
 ];
 
+function GalleryCard({
+  image,
+  index,
+  shouldReduceMotion,
+}: {
+  image: (typeof galleryImages)[number];
+  index: number;
+  shouldReduceMotion: boolean;
+}) {
+  const [imgSrc, setImgSrc] = useState(image.src);
+  const isFeatured = index === 0;
+
+  return (
+    <motion.article
+      initial={
+        shouldReduceMotion
+          ? false
+          : {
+              opacity: 0,
+              scale: 0.96,
+            }
+      }
+      whileInView={
+        shouldReduceMotion
+          ? undefined
+          : {
+              opacity: 1,
+              scale: 1,
+            }
+      }
+      viewport={{
+        once: true,
+        amount: 0.15,
+      }}
+      transition={{
+        duration: 0.6,
+        delay: shouldReduceMotion ? 0 : index * 0.1,
+        ease: "easeOut" as const,
+      }}
+      className={`
+        group relative overflow-hidden
+        border border-white/10
+        bg-[#071A33]
+        shadow-[0_14px_35px_rgba(7,26,51,0.12)]
+        ${image.className}
+      `}
+    >
+      <Image
+        src={imgSrc}
+        alt={`${image.title} – RUMUNA ${image.category}`}
+        fill
+        onError={() => setImgSrc(image.fallback)}
+        sizes={
+          isFeatured
+            ? "(max-width: 768px) 100vw, (max-width: 1024px) 100vw, 50vw"
+            : "(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 25vw"
+        }
+        className="
+          object-cover
+          transition-transform duration-1000
+          ease-out
+          group-hover:scale-[1.07]
+        "
+      />
+
+      {/* Image overlay */}
+      <div
+        aria-hidden="true"
+        className="
+          absolute inset-0
+          bg-gradient-to-t
+          from-[#041126]/95
+          via-[#071A33]/15
+          to-transparent
+          transition-colors duration-500
+          group-hover:via-[#071A33]/35
+        "
+      />
+
+      {/* Gallery number */}
+      <span
+        aria-hidden="true"
+        className="
+          absolute left-5 top-5
+          font-serif text-3xl font-bold
+          text-white/25
+          sm:text-4xl
+        "
+      >
+        {String(index + 1).padStart(2, "0")}
+      </span>
+
+      {/* Open image button */}
+      <a
+        href={imgSrc}
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label={`Open ${image.title} image`}
+        className="
+          absolute right-5 top-5
+          flex h-11 w-11
+          items-center justify-center
+          border border-[#E2C66E]/40
+          bg-[#C8A443]
+          text-[#071A33]
+          opacity-100 shadow-lg
+          transition-all duration-300
+          hover:-translate-y-1
+          hover:bg-[#E2C66E]
+          focus-visible:outline-none
+          focus-visible:ring-2
+          focus-visible:ring-[#E2C66E]
+          focus-visible:ring-offset-2
+          focus-visible:ring-offset-[#071A33]
+          sm:translate-y-3
+          sm:opacity-0
+          sm:group-hover:translate-y-0
+          sm:group-hover:opacity-100
+          sm:group-focus-within:translate-y-0
+          sm:group-focus-within:opacity-100
+        "
+      >
+        <FiMaximize2 aria-hidden="true" />
+      </a>
+
+      {/* Image information */}
+      <div
+        className="
+          absolute bottom-0 left-0
+          w-full p-6
+          transition-transform duration-500
+          sm:translate-y-2
+          sm:group-hover:translate-y-0
+          lg:p-7
+        "
+      >
+        <p
+          className="
+            text-[10px] font-extrabold
+            uppercase tracking-[0.2em]
+            text-[#E2C66E]
+            sm:text-[11px]
+          "
+        >
+          {image.category}
+        </p>
+
+        <h3
+          className={`
+            mt-2 font-serif font-bold
+            leading-tight text-white
+            ${
+              isFeatured
+                ? "text-2xl sm:text-3xl lg:text-4xl"
+                : "text-xl sm:text-2xl"
+            }
+          `}
+        >
+          {image.title}
+        </h3>
+
+        <div
+          aria-hidden="true"
+          className="
+            mt-4 h-[2px] w-10
+            bg-[#C8A443]
+            transition-all duration-500
+            group-hover:w-16
+          "
+        />
+      </div>
+    </motion.article>
+  );
+}
+
 export default function Gallery() {
-  const shouldReduceMotion = useReducedMotion();
+  const shouldReduceMotion = useReducedMotion() ?? false;
 
   return (
     <section
       id="gallery"
       aria-labelledby="gallery-heading"
       className="
-        section-padding relative overflow-hidden
-        bg-[#F8FAFC]
+        section-padding relative scroll-mt-24
+        overflow-hidden bg-[#F8FAFC]
       "
     >
       {/* Decorative background */}
@@ -55,8 +236,9 @@ export default function Gallery() {
         aria-hidden="true"
         className="
           absolute -left-44 top-1/4
-          h-[420px] w-[420px] rounded-full
-          bg-[#C8A443]/[0.07] blur-3xl
+          h-[420px] w-[420px]
+          rounded-full bg-[#C8A443]/[0.07]
+          blur-3xl
         "
       />
 
@@ -64,8 +246,9 @@ export default function Gallery() {
         aria-hidden="true"
         className="
           absolute -right-52 bottom-10
-          h-[480px] w-[480px] rounded-full
-          bg-[#173B68]/[0.06] blur-3xl
+          h-[480px] w-[480px]
+          rounded-full bg-[#173B68]/[0.06]
+          blur-3xl
         "
       />
 
@@ -123,8 +306,9 @@ export default function Gallery() {
 
             <p
               className="
-                mt-6 max-w-2xl text-[15px]
-                leading-7 text-slate-600
+                mt-6 max-w-2xl
+                text-[15px] leading-7
+                text-slate-600
                 sm:text-base sm:leading-8
               "
             >
@@ -144,10 +328,14 @@ export default function Gallery() {
               tracking-[0.12em] text-[#071A33]
               transition-colors duration-300
               hover:text-[#9F7B20]
+              focus-visible:outline-none
+              focus-visible:ring-2
+              focus-visible:ring-[#C8A443]
+              focus-visible:ring-offset-4
               sm:text-sm
             "
           >
-            Explore Gallery
+            <span>Explore Gallery</span>
 
             <FiArrowRight
               aria-hidden="true"
@@ -170,156 +358,14 @@ export default function Gallery() {
             lg:mt-16 lg:grid-cols-4
           "
         >
-          {galleryImages.map((image, index) => {
-            const isFeatured = index === 0;
-
-            return (
-              <motion.article
-                key={image.src}
-                initial={
-                  shouldReduceMotion
-                    ? false
-                    : { opacity: 0, scale: 0.96 }
-                }
-                whileInView={
-                  shouldReduceMotion
-                    ? undefined
-                    : { opacity: 1, scale: 1 }
-                }
-                viewport={{ once: true, amount: 0.15 }}
-                transition={{
-                  duration: 0.6,
-                  delay: shouldReduceMotion ? 0 : index * 0.1,
-                  ease: "easeOut",
-                }}
-                className={`
-                  group relative overflow-hidden
-                  border border-white/10 bg-[#071A33]
-                  shadow-[0_14px_35px_rgba(7,26,51,0.12)]
-                  ${image.className}
-                `}
-              >
-                <Image
-                  src={image.src}
-                  alt={`${image.title} – RUMUNA ${image.category}`}
-                  fill
-                  sizes={
-                    isFeatured
-                      ? "(max-width: 768px) 100vw, (max-width: 1024px) 100vw, 50vw"
-                      : "(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 25vw"
-                  }
-                  className="
-                    object-cover
-                    transition-transform duration-1000
-                    ease-out group-hover:scale-[1.07]
-                  "
-                />
-
-                {/* Image overlay */}
-                <div
-                  aria-hidden="true"
-                  className="
-                    absolute inset-0
-                    bg-gradient-to-t
-                    from-[#041126]/95
-                    via-[#071A33]/15
-                    to-transparent
-                    transition-colors duration-500
-                    group-hover:via-[#071A33]/35
-                  "
-                />
-
-                {/* Gallery number */}
-                <span
-                  aria-hidden="true"
-                  className="
-                    absolute left-5 top-5
-                    font-serif text-3xl font-bold
-                    text-white/25 sm:text-4xl
-                  "
-                >
-                  {String(index + 1).padStart(2, "0")}
-                </span>
-
-                {/* Open image */}
-                <a
-                  href={image.src}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label={`Open ${image.title} image`}
-                  className="
-                    absolute right-5 top-5
-                    flex h-11 w-11
-                    items-center justify-center
-                    border border-[#E2C66E]/40
-                    bg-[#C8A443] text-[#071A33]
-                    opacity-100 shadow-lg
-                    transition-all duration-300
-                    hover:-translate-y-1
-                    hover:bg-[#E2C66E]
-                    focus-visible:outline
-                    focus-visible:outline-2
-                    focus-visible:outline-offset-3
-                    focus-visible:outline-[#E2C66E]
-                    sm:translate-y-3 sm:opacity-0
-                    sm:group-hover:translate-y-0
-                    sm:group-hover:opacity-100
-                    sm:group-focus-within:translate-y-0
-                    sm:group-focus-within:opacity-100
-                  "
-                >
-                  <FiMaximize2 aria-hidden="true" />
-                </a>
-
-                {/* Image information */}
-                <div
-                  className="
-                    absolute bottom-0 left-0
-                    w-full p-6
-                    transition-transform duration-500
-                    sm:translate-y-2
-                    sm:group-hover:translate-y-0
-                    lg:p-7
-                  "
-                >
-                  <p
-                    className="
-                      text-[10px] font-extrabold
-                      uppercase tracking-[0.2em]
-                      text-[#E2C66E]
-                      sm:text-[11px]
-                    "
-                  >
-                    {image.category}
-                  </p>
-
-                  <h3
-                    className={`
-                      mt-2 font-serif font-bold
-                      leading-tight text-white
-                      ${
-                        isFeatured
-                          ? "text-2xl sm:text-3xl lg:text-4xl"
-                          : "text-xl sm:text-2xl"
-                      }
-                    `}
-                  >
-                    {image.title}
-                  </h3>
-
-                  <div
-                    aria-hidden="true"
-                    className="
-                      mt-4 h-[2px] w-10
-                      bg-[#C8A443]
-                      transition-all duration-500
-                      group-hover:w-16
-                    "
-                  />
-                </div>
-              </motion.article>
-            );
-          })}
+          {galleryImages.map((image, index) => (
+            <GalleryCard
+              key={image.src}
+              image={image}
+              index={index}
+              shouldReduceMotion={shouldReduceMotion}
+            />
+          ))}
         </div>
 
         {/* Bottom callout */}
@@ -356,7 +402,8 @@ export default function Gallery() {
             <p
               className="
                 text-[11px] font-bold uppercase
-                tracking-[0.22em] text-[#E2C66E]
+                tracking-[0.22em]
+                text-[#E2C66E]
                 sm:text-xs
               "
             >
@@ -375,8 +422,9 @@ export default function Gallery() {
 
             <p
               className="
-                mt-3 max-w-xl text-sm
-                leading-7 text-white/60
+                mt-3 max-w-xl
+                text-sm leading-7
+                text-white/60
               "
             >
               Join a community where diplomacy, leadership and meaningful
@@ -390,18 +438,20 @@ export default function Gallery() {
               formal-button group relative mt-7
               inline-flex min-h-12 shrink-0
               items-center justify-center gap-3
-              px-7 py-3.5 text-xs
-              font-bold uppercase tracking-[0.11em]
-              sm:text-[13px] md:mt-0
+              px-7 py-3.5
+              text-xs font-bold uppercase
+              tracking-[0.11em]
+              sm:text-[13px]
+              md:mt-0
             "
           >
-            Join RUMUNA
+            <span>Join RUMUNA</span>
 
             <FiArrowRight
               aria-hidden="true"
               className="
-                text-base transition-transform
-                duration-300
+                text-base
+                transition-transform duration-300
                 group-hover:translate-x-1.5
               "
             />

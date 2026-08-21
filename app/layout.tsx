@@ -30,6 +30,10 @@ const cormorant = Cormorant_Garamond({
 
 /* Website SEO information */
 export const metadata: Metadata = {
+  metadataBase: new URL(
+    process.env.NEXT_PUBLIC_SITE_URL || "https://rumuna-website.vercel.app"
+  ),
+
   title: {
     default: "RUMUNA | Rajshahi University Model United Nations Association",
     template: "%s | RUMUNA",
@@ -69,13 +73,21 @@ export const metadata: Metadata = {
     title: "RUMUNA | Leadership Through Diplomacy",
     description:
       "Empowering future leaders through diplomacy, dialogue, collaboration, and Model United Nations activities.",
+    images: [
+      {
+        url: "/rumuna-logo.png",
+        width: 512,
+        height: 512,
+        alt: "RUMUNA Logo",
+      },
+    ],
   },
 
   twitter: {
     card: "summary_large_image",
     title: "RUMUNA | Leadership Through Diplomacy",
-    description:
-      "Rajshahi University Model United Nations Association.",
+    description: "Rajshahi University Model United Nations Association.",
+    images: ["/rumuna-logo.png"],
   },
 
   icons: {
@@ -99,6 +111,30 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "EducationalOrganization",
+    name: "Rajshahi University Model United Nations Association",
+    alternateName: "RUMUNA",
+    url: "https://rumuna-website.vercel.app",
+    logo: "https://rumuna-website.vercel.app/rumuna-logo.png",
+    sameAs: [
+      "https://facebook.com/RUMUNA",
+      "https://instagram.com/rumuna_official",
+      "https://linkedin.com/company/rumuna",
+    ],
+    address: {
+      "@type": "PostalAddress",
+      addressLocality: "Rajshahi",
+      postalCode: "6205",
+      addressCountry: "BD",
+    },
+    parentOrganization: {
+      "@type": "CollegeOrUniversity",
+      name: "University of Rajshahi",
+    },
+  };
+
   return (
     <html
       lang="en"
@@ -120,6 +156,10 @@ export default function RootLayout({
           text-foreground
         "
       >
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
         {children}
       </body>
     </html>

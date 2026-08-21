@@ -47,12 +47,12 @@ export default function Footer() {
         RUMUNA website footer
       </h2>
 
-      {/* Gold top border */}
+      {/* Royal top border */}
       <div
         aria-hidden="true"
         className="
           h-1 w-full bg-gradient-to-r
-          from-[#71530F] via-[#E2C66E] to-[#71530F]
+          from-[#172554] via-[#3b82f6] to-[#172554]
         "
       />
 
@@ -104,7 +104,7 @@ export default function Footer() {
             <p
               className="
                 font-serif text-4xl font-bold
-                tracking-[0.04em] text-[#E2C66E]
+                tracking-[0.04em] text-[#93c5fd]
                 transition-colors duration-300
                 hover:text-white
               "
@@ -216,7 +216,7 @@ export default function Footer() {
             id="quick-links-heading"
             className="
               font-serif text-xl font-bold
-              text-[#E2C66E]
+              text-[#93c5fd]
             "
           >
             Quick Links
@@ -227,7 +227,7 @@ export default function Footer() {
             className="
               mt-3 h-[2px] w-12
               bg-gradient-to-r
-              from-[#C8A443] to-transparent
+              from-[#3b82f6] to-transparent
             "
           />
 
@@ -266,7 +266,7 @@ export default function Footer() {
 
         {/* Social links and CTA */}
         <div>
-          <h3 className="font-serif text-xl font-bold text-[#E2C66E]">
+          <h3 className="font-serif text-xl font-bold text-[#93c5fd]">
             Follow Us
           </h3>
 
@@ -275,7 +275,7 @@ export default function Footer() {
             className="
               mt-3 h-[2px] w-12
               bg-gradient-to-r
-              from-[#C8A443] to-transparent
+              from-[#3b82f6] to-transparent
             "
           />
 
@@ -302,13 +302,13 @@ export default function Footer() {
                     text-lg text-white/75
                     transition-all duration-300
                     hover:-translate-y-1
-                    hover:border-[#C8A443]
-                    hover:bg-[#C8A443]
-                    hover:text-[#071A33]
+                    hover:border-[#1d4ed8]
+                    hover:bg-[#1d4ed8]
+                    hover:text-white
                     focus-visible:outline
                     focus-visible:outline-2
                     focus-visible:outline-offset-4
-                    focus-visible:outline-[#E2C66E]
+                    focus-visible:outline-[#93c5fd]
                   "
                 >
                   <Icon aria-hidden="true" />

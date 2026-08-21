@@ -157,9 +157,9 @@ export default function About() {
                 px-4 py-4 text-white
                 shadow-[0_16px_35px_rgba(7,26,51,0.28)]
                 backdrop-blur-md
-                sm:bottom-2 sm:right-3
+                sm:bottom-7 sm:right-6
                 sm:w-[250px]
-                sm:px-6 sm:py-2
+                sm:px-6 sm:py-5
               "
             >
               <p
@@ -225,9 +225,9 @@ export default function About() {
               xl:text-[50px]
             "
           >
-            Learn Diplamacy,{" "}
+            Shaping Future Leaders Through{" "}
             <span className="gold-gradient-text">
-              Change for a Better World
+              Diplomacy and Dialogue
             </span>
           </h2>
 

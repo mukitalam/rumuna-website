@@ -3,10 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { motion, useReducedMotion } from "framer-motion";
-import {
-  FiArrowDown,
-  FiArrowRight,
-} from "react-icons/fi";
+import { FiArrowDown, FiArrowRight } from "react-icons/fi";
 
 const rumunaStats = [
   {
@@ -43,7 +40,7 @@ const heroHighlights = [
 ];
 
 export default function Hero() {
-  const shouldReduceMotion = useReducedMotion();
+  const shouldReduceMotion = useReducedMotion() ?? false;
 
   const animation = (delay: number, y = 24) => ({
     initial: shouldReduceMotion
@@ -72,7 +69,7 @@ export default function Hero() {
       className="
         relative flex min-h-[100svh]
         scroll-mt-20 items-center
-        overflow-hidden bg-[#071A33]
+        overflow-hidden bg-[#0b192e]
         pt-[76px] md:pt-[88px]
       "
     >
@@ -92,9 +89,9 @@ export default function Hero() {
         className="
           absolute inset-0
           bg-gradient-to-r
-          from-[#031022]/[0.98]
-          via-[#071A33]/85
-          to-[#071A33]/45
+          from-[#0b192e]/[0.98]
+          via-[#172554]/85
+          to-[#1e3a8a]/45
         "
       />
 
@@ -104,18 +101,18 @@ export default function Hero() {
         className="
           absolute inset-0
           bg-gradient-to-t
-          from-[#031022]/95
+          from-[#0b192e]/95
           via-transparent
-          to-[#031022]/35
+          to-[#0b192e]/35
         "
       />
 
-      {/* Golden light */}
+      {/* Royal light glow */}
       <div
         aria-hidden="true"
         className="
           absolute inset-0
-          bg-[radial-gradient(circle_at_72%_35%,rgba(200,164,67,0.14),transparent_36%)]
+          bg-[radial-gradient(circle_at_72%_35%,rgba(59,130,246,0.18),transparent_38%)]
         "
       />
 
@@ -176,8 +173,8 @@ export default function Hero() {
             className="
               mb-7 inline-flex
               items-center gap-3
-              border-l-2 border-[#C8A443]
-              bg-white/[0.06]
+              border-l-2 border-[#3b82f6]
+              bg-white/[0.08]
               px-4 py-2.5
               backdrop-blur-md
             "
@@ -186,7 +183,7 @@ export default function Hero() {
               aria-hidden="true"
               className="
                 h-2 w-2 shrink-0
-                rotate-45 bg-[#E2C66E]
+                rotate-45 bg-[#60a5fa]
               "
             />
 
@@ -194,7 +191,7 @@ export default function Hero() {
               className="
                 text-[10px] font-bold uppercase
                 tracking-[0.18em]
-                text-[#E2C66E]
+                text-[#93c5fd]
                 sm:text-xs sm:tracking-[0.22em]
               "
             >
@@ -221,9 +218,9 @@ export default function Hero() {
               className="
                 mt-1 block
                 bg-gradient-to-r
-                from-[#E2C66E]
-                via-[#C8A443]
-                to-[#F2D982]
+                from-[#93c5fd]
+                via-[#3b82f6]
+                to-[#60a5fa]
                 bg-clip-text text-transparent
               "
             >
@@ -241,10 +238,9 @@ export default function Hero() {
               sm:text-lg sm:leading-8
             "
           >
-            Rajshahi University Model United Nations Association
-            provides a distinguished platform for young leaders to
-            develop diplomacy, negotiation, public speaking and
-            critical-thinking skills.
+            Rajshahi University Model United Nations Association provides a
+            distinguished platform for young leaders to develop diplomacy,
+            negotiation, public speaking and critical-thinking skills.
           </motion.p>
 
           {/* RUMUNA achievements */}
@@ -263,36 +259,26 @@ export default function Hero() {
                 className="
                   group relative min-h-[112px]
                   overflow-hidden
-                  border border-[#C8A443]/30
-                  bg-white/[0.055]
+                  border border-[#3b82f6]/30
+                  bg-white/[0.06]
                   px-4 py-5
                   backdrop-blur-md
                   transition-all duration-300
                   hover:-translate-y-1
-                  hover:border-[#C8A443]/70
-                  hover:bg-white/[0.09]
-                  hover:shadow-[0_15px_35px_rgba(0,0,0,0.18)]
+                  hover:border-[#3b82f6]/70
+                  hover:bg-white/[0.1]
+                  hover:shadow-[0_15px_35px_rgba(0,0,0,0.22)]
                 "
               >
-                {/* Top golden reflection */}
+                {/* Top reflection */}
                 <span
                   aria-hidden="true"
                   className="
                     absolute inset-x-0 top-0 h-px
                     bg-gradient-to-r
                     from-transparent
-                    via-[#E2C66E]/80
+                    via-[#60a5fa]/80
                     to-transparent
-                  "
-                />
-
-                {/* Corner decoration */}
-                <span
-                  aria-hidden="true"
-                  className="
-                    absolute -right-5 -top-5
-                    h-14 w-14 rotate-45
-                    border border-[#C8A443]/15
                   "
                 />
 
@@ -300,7 +286,7 @@ export default function Hero() {
                   className="
                     font-serif text-[28px]
                     font-bold leading-none
-                    text-[#E2C66E]
+                    text-[#93c5fd]
                     sm:text-[32px]
                   "
                 >
@@ -313,7 +299,7 @@ export default function Hero() {
                     text-[9px] font-semibold
                     uppercase leading-[1.5]
                     tracking-[0.11em]
-                    text-white/75
+                    text-white/80
                     sm:text-[10px]
                   "
                 >
@@ -456,7 +442,7 @@ export default function Hero() {
           absolute bottom-0 left-0 z-10
           hidden w-full
           border-t border-white/10
-          bg-[#031022]/80
+          bg-[#0b192e]/90
           backdrop-blur-xl
           md:block
         "
@@ -482,7 +468,7 @@ export default function Hero() {
                 className="
                   text-[10px] font-bold uppercase
                   tracking-[0.2em]
-                  text-[#E2C66E]
+                  text-[#93c5fd]
                 "
               >
                 {item.label}

@@ -184,13 +184,13 @@ export default function Navbar() {
           isScrolled
             ? `
               border-white/15
-              bg-[linear-gradient(180deg,rgba(255,255,255,0.10)_0%,rgba(255,255,255,0.035)_38%,rgba(255,255,255,0)_65%),rgba(7,26,51,0.94)]
-              shadow-[0_12px_40px_rgba(0,0,0,0.28),inset_0_1px_0_rgba(255,255,255,0.14)]
+              bg-[linear-gradient(180deg,rgba(59,130,246,0.12)_0%,rgba(255,255,255,0.03)_38%,rgba(255,255,255,0)_65%),rgba(11,25,46,0.96)]
+              shadow-[0_12px_40px_rgba(0,0,0,0.3),inset_0_1px_0_rgba(255,255,255,0.14)]
             `
             : `
               border-white/15
-              bg-[linear-gradient(180deg,rgba(255,255,255,0.09)_0%,rgba(255,255,255,0.025)_42%,rgba(255,255,255,0)_68%),#071A33]
-              shadow-[inset_0_1px_0_rgba(255,255,255,0.12),0_8px_30px_rgba(0,0,0,0.16)]
+              bg-[linear-gradient(180deg,rgba(59,130,246,0.10)_0%,rgba(255,255,255,0.02)_42%,rgba(255,255,255,0)_68%),#0b192e]
+              shadow-[inset_0_1px_0_rgba(255,255,255,0.12),0_8px_30px_rgba(0,0,0,0.18)]
             `
         }
       `}
@@ -235,12 +235,12 @@ export default function Navbar() {
             className="
               relative h-[58px] w-[58px]
               shrink-0 overflow-hidden rounded-full
-              border border-[#C8A443]/45
+              border border-[#3b82f6]/50
               bg-white/5
-              shadow-[0_0_25px_rgba(200,164,67,0.10)]
+              shadow-[0_0_25px_rgba(29,78,216,0.18)]
               transition-all duration-500
-              group-hover:border-[#C8A443]
-              group-hover:shadow-[0_0_30px_rgba(200,164,67,0.24)]
+              group-hover:border-[#60a5fa]
+              group-hover:shadow-[0_0_30px_rgba(59,130,246,0.35)]
               motion-reduce:transition-none
               sm:h-[64px] sm:w-[64px]
               md:h-[70px] md:w-[70px]
@@ -268,7 +268,7 @@ export default function Navbar() {
             className="
               mx-4 hidden h-12 w-px shrink-0
               bg-gradient-to-b from-transparent
-              via-[#C8A443]/80 to-transparent
+              via-[#3b82f6]/80 to-transparent
               sm:block md:h-14
             "
           />
@@ -321,15 +321,6 @@ export default function Navbar() {
             >
               Model United Nations Association
             </p>
-
-            <p
-              className="
-                mt-0.5 text-[8px] font-semibold
-                uppercase tracking-[0.15em]
-                text-white/60
-              "
-            >
-            </p>
           </div>
         </Link>
 
@@ -353,10 +344,10 @@ export default function Navbar() {
                   gap-1.5 px-2.5
                   text-[12px] font-semibold
                   uppercase tracking-[0.055em]
-                  text-white/80 outline-none
+                  text-white/85 outline-none
                   transition-colors duration-300
-                  hover:text-[#E2C66E]
-                  focus-visible:text-[#E2C66E]
+                  hover:text-[#93c5fd]
+                  focus-visible:text-[#93c5fd]
                   motion-reduce:transition-none
                 "
               >
@@ -375,14 +366,14 @@ export default function Navbar() {
                   />
                 )}
 
-                {/* Gold hover line */}
+                {/* Royal hover line */}
                 <span
                   aria-hidden="true"
                   className="
                     absolute inset-x-2.5 bottom-[24px]
                     h-[2px] origin-center scale-x-0
                     bg-gradient-to-r
-                    from-transparent via-[#C8A443]
+                    from-transparent via-[#3b82f6]
                     to-transparent
                     transition-transform duration-300
                     group-hover:scale-x-100
@@ -401,9 +392,9 @@ export default function Navbar() {
                     w-[250px] -translate-x-1/2
                     translate-y-3
                     border border-slate-200/80
-                    border-t-2 border-t-[#C8A443]
+                    border-t-2 border-t-[#1d4ed8]
                     bg-white p-2 opacity-0
-                    shadow-[0_22px_60px_rgba(7,26,51,0.22)]
+                    shadow-[0_22px_60px_rgba(15,23,42,0.18)]
                     transition-all duration-300
                     group-hover:visible
                     group-hover:translate-y-0
@@ -422,17 +413,17 @@ export default function Navbar() {
                         group/dropdown relative flex
                         min-h-[48px] items-center
                         overflow-hidden
-                        border-b border-[#DCE3EA]
+                        border-b border-slate-100
                         bg-white px-4 py-3
                         text-[14px] font-semibold
                         tracking-[0.02em]
-                        !text-[#071A33] outline-none
+                        !text-[#0f172a] outline-none
                         transition-all duration-300
                         last:border-b-0
-                        hover:bg-[#F8F1DD]
-                        hover:!text-[#8A6817]
-                        focus-visible:bg-[#F8F1DD]
-                        focus-visible:!text-[#8A6817]
+                        hover:bg-[#eff6ff]
+                        hover:!text-[#1d4ed8]
+                        focus-visible:bg-[#eff6ff]
+                        focus-visible:!text-[#1d4ed8]
                         motion-reduce:transition-none
                       "
                     >
@@ -441,7 +432,7 @@ export default function Navbar() {
                         className="
                           absolute bottom-2 left-0 top-2
                           w-[3px] scale-y-0
-                          bg-[#C8A443]
+                          bg-[#1d4ed8]
                           transition-transform duration-300
                           group-hover/dropdown:scale-y-100
                           group-focus-visible/dropdown:scale-y-100
