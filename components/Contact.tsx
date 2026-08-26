@@ -48,25 +48,25 @@ export default function Contact() {
       aria-labelledby="contact-heading"
       className="
         section-padding relative overflow-hidden
-        bg-white
+        bg-[#f8fafc]
       "
     >
-      {/* Decorative background */}
+      {/* Decorative background ambient glows */}
       <div
         aria-hidden="true"
         className="
-          absolute -left-40 top-10
-          h-[380px] w-[380px] rounded-full
-          bg-[#C8A443]/[0.07] blur-3xl
+          pointer-events-none absolute -left-40 top-10
+          h-[400px] w-[400px] rounded-full
+          bg-[#3b82f6]/[0.05] blur-3xl
         "
       />
 
       <div
         aria-hidden="true"
         className="
-          absolute -right-44 bottom-0
-          h-[430px] w-[430px] rounded-full
-          bg-[#173B68]/[0.06] blur-3xl
+          pointer-events-none absolute -right-44 bottom-0
+          h-[450px] w-[450px] rounded-full
+          bg-[#1d4ed8]/[0.04] blur-3xl
         "
       />
 
@@ -79,21 +79,21 @@ export default function Contact() {
         "
       >
         {/* Contact information */}
-        <div className="animate-fade-up lg:sticky lg:top-32">
+        <div className="lg:sticky lg:top-32">
           <div className="flex items-center gap-3">
             <span
               aria-hidden="true"
               className="
                 h-[2px] w-10
                 bg-gradient-to-r
-                from-[#9F7B20] to-[#E2C66E]
+                from-transparent to-[#1d4ed8]
               "
             />
 
             <p
               className="
                 text-xs font-bold uppercase
-                tracking-[0.22em] text-[#9F7B20]
+                tracking-[0.22em] text-[#1d4ed8]
                 sm:text-sm
               "
             >
@@ -106,12 +106,12 @@ export default function Contact() {
             className="
               mt-5 max-w-xl font-serif
               text-4xl font-bold leading-[1.08]
-              text-[#071A33]
+              text-[#071426]
               sm:text-5xl lg:text-[56px]
             "
           >
             Let&apos;s Start a{" "}
-            <span className="gold-gradient-text">
+            <span className="bg-gradient-to-r from-[#1d4ed8] via-[#3b82f6] to-[#d4af37] bg-clip-text text-transparent">
               Conversation
             </span>
           </h2>
@@ -119,8 +119,8 @@ export default function Contact() {
           <p
             className="
               mt-6 max-w-xl text-[15px]
-              leading-7 text-slate-600
-              sm:text-base sm:leading-8
+              leading-8 text-slate-600
+              sm:text-base
             "
           >
             Contact Rajshahi University Model United Nations
@@ -133,8 +133,8 @@ export default function Contact() {
             className="
               mt-7 h-px w-full
               bg-gradient-to-r
-              from-[#C8A443]/60
-              via-[#C8A443]/15
+              from-[#3b82f6]/40
+              via-[#3b82f6]/10
               to-transparent
             "
           />
@@ -158,15 +158,15 @@ export default function Contact() {
                       : undefined
                   }
                   className="
-                    group flex items-start gap-4
-                    border border-slate-200/80
-                    bg-[#F8FAFC] p-4
-                    shadow-[0_8px_25px_rgba(7,26,51,0.04)]
+                    formal-card group flex items-start gap-4
+                    rounded-2xl border border-slate-200/90
+                    bg-[#f8fafc] p-4.5
+                    shadow-[0_8px_25px_rgba(7,20,38,0.04)]
                     transition-all duration-300
                     hover:-translate-y-1
-                    hover:border-[#C8A443]/50
+                    hover:border-[#3b82f6]/50
                     hover:bg-white
-                    hover:shadow-[0_15px_35px_rgba(7,26,51,0.09)]
+                    hover:shadow-[0_16px_35px_rgba(29,78,216,0.1)]
                     sm:p-5
                   "
                 >
@@ -174,11 +174,11 @@ export default function Contact() {
                     className="
                       flex h-12 w-12 shrink-0
                       items-center justify-center
-                      bg-[#071A33] text-xl
-                      text-[#E2C66E]
+                      rounded-xl bg-[#071426] text-xl
+                      text-[#93c5fd]
                       transition-colors duration-300
-                      group-hover:bg-[#C8A443]
-                      group-hover:text-[#071A33]
+                      group-hover:bg-[#1d4ed8]
+                      group-hover:text-white
                     "
                   >
                     <Icon aria-hidden="true" />
@@ -189,7 +189,7 @@ export default function Contact() {
                       className="
                         block text-xs font-bold
                         uppercase tracking-[0.13em]
-                        text-[#071A33]
+                        text-[#071426]
                       "
                     >
                       {item.label}
@@ -200,7 +200,7 @@ export default function Contact() {
                         mt-1.5 block break-words
                         text-sm leading-6 text-slate-600
                         transition-colors duration-300
-                        group-hover:text-[#9F7B20]
+                        group-hover:text-[#1d4ed8]
                       "
                     >
                       {item.value}
@@ -213,16 +213,27 @@ export default function Contact() {
 
           <div
             className="
-              mt-7 border-l-[3px]
-              border-[#C8A443] bg-[#071A33]
-              px-5 py-5 text-white
-              sm:px-6
+              group relative mt-7 overflow-hidden rounded-2xl border-l-4
+              border-[#3b82f6] bg-[#071426]
+              px-6 py-6 text-white
+              shadow-[0_20px_45px_rgba(0,0,0,0.4),0_0_25px_rgba(59,130,246,0.1),inset_0_1px_0_rgba(255,255,255,0.08)]
             "
           >
+            {/* Shimmer sweep on hover */}
+            <span
+              aria-hidden="true"
+              className="
+                pointer-events-none absolute inset-0
+                -translate-x-full skew-x-[-20deg]
+                bg-gradient-to-r from-transparent via-white/[0.04] to-transparent
+                transition-transform duration-700
+                group-hover:translate-x-[200%]
+              "
+            />
             <p
               className="
-                font-serif text-lg font-semibold
-                text-[#E2C66E]
+                font-serif text-lg font-bold
+                text-[#93c5fd]
               "
             >
               We welcome collaboration
@@ -231,7 +242,7 @@ export default function Contact() {
             <p
               className="
                 mt-2 text-sm leading-6
-                text-white/65
+                text-slate-300
               "
             >
               Institutions, student organizations and potential
@@ -244,29 +255,17 @@ export default function Contact() {
         {/* Contact form */}
         <div
           className="
-            animate-fade-up animation-delay-200
-            relative border border-[#C8A443]/30
-            bg-[#FBF8EF]
-            p-5 shadow-[0_25px_70px_rgba(7,26,51,0.12)]
-            sm:p-8 lg:p-10
+            relative rounded-2xl border border-slate-200/90
+            bg-[#f8fafc]
+            p-6 shadow-[0_25px_70px_rgba(7,20,38,0.08)]
+            sm:p-9 lg:p-10
           "
         >
-          {/* Decorative corner */}
-          <div
-            aria-hidden="true"
-            className="
-              absolute right-0 top-0
-              h-24 w-24 border-b border-l
-              border-[#C8A443]/35
-              sm:h-32 sm:w-32
-            "
-          />
-
           <div className="relative">
             <p
               className="
                 text-xs font-bold uppercase
-                tracking-[0.2em] text-[#9F7B20]
+                tracking-[0.2em] text-[#1d4ed8]
               "
             >
               Send a Message
@@ -275,7 +274,7 @@ export default function Contact() {
             <h3
               className="
                 mt-3 font-serif text-3xl
-                font-bold leading-tight text-[#071A33]
+                font-bold leading-tight text-[#071426]
                 sm:text-4xl
               "
             >
@@ -308,7 +307,7 @@ export default function Contact() {
                     className="
                       mb-2 block text-xs font-bold
                       uppercase tracking-[0.09em]
-                      text-[#071A33]
+                      text-[#071426]
                     "
                   >
                     Full Name
@@ -322,16 +321,17 @@ export default function Contact() {
                     required
                     placeholder="Enter your full name"
                     className="
-                      min-h-12 w-full
+                      min-h-12 w-full rounded-xl
                       border border-slate-200
                       bg-white px-4 py-3
-                      text-sm text-[#071A33]
+                      text-sm text-[#071426]
                       outline-none transition-all
                       duration-300
                       placeholder:text-slate-400
-                      focus:border-[#C8A443]
+                      focus:border-[#3b82f6]
                       focus:ring-2
-                      focus:ring-[#C8A443]/15
+                      focus:ring-[#3b82f6]/20
+                      focus:shadow-[0_0_0_4px_rgba(59,130,246,0.12)]
                     "
                   />
                 </div>
@@ -342,7 +342,7 @@ export default function Contact() {
                     className="
                       mb-2 block text-xs font-bold
                       uppercase tracking-[0.09em]
-                      text-[#071A33]
+                      text-[#071426]
                     "
                   >
                     Email Address
@@ -356,16 +356,17 @@ export default function Contact() {
                     required
                     placeholder="Enter your email address"
                     className="
-                      min-h-12 w-full
+                      min-h-12 w-full rounded-xl
                       border border-slate-200
                       bg-white px-4 py-3
-                      text-sm text-[#071A33]
+                      text-sm text-[#071426]
                       outline-none transition-all
                       duration-300
                       placeholder:text-slate-400
-                      focus:border-[#C8A443]
+                      focus:border-[#3b82f6]
                       focus:ring-2
-                      focus:ring-[#C8A443]/15
+                      focus:ring-[#3b82f6]/20
+                      focus:shadow-[0_0_0_4px_rgba(59,130,246,0.12)]
                     "
                   />
                 </div>
@@ -377,7 +378,7 @@ export default function Contact() {
                   className="
                     mb-2 block text-xs font-bold
                     uppercase tracking-[0.09em]
-                    text-[#071A33]
+                    text-[#071426]
                   "
                 >
                   Subject
@@ -389,17 +390,18 @@ export default function Contact() {
                   type="text"
                   required
                   placeholder="What would you like to discuss?"
-                  className="
-                    min-h-12 w-full
+                   className="
+                    min-h-12 w-full rounded-xl
                     border border-slate-200
                     bg-white px-4 py-3
-                    text-sm text-[#071A33]
+                    text-sm text-[#071426]
                     outline-none transition-all
                     duration-300
                     placeholder:text-slate-400
-                    focus:border-[#C8A443]
+                    focus:border-[#3b82f6]
                     focus:ring-2
-                    focus:ring-[#C8A443]/15
+                    focus:ring-[#3b82f6]/20
+                    focus:shadow-[0_0_0_4px_rgba(59,130,246,0.12)]
                   "
                 />
               </div>
@@ -410,7 +412,7 @@ export default function Contact() {
                   className="
                     mb-2 block text-xs font-bold
                     uppercase tracking-[0.09em]
-                    text-[#071A33]
+                    text-[#071426]
                   "
                 >
                   Message
@@ -423,16 +425,17 @@ export default function Contact() {
                   rows={6}
                   placeholder="Write your message here"
                   className="
-                    w-full resize-y
+                    w-full resize-y rounded-xl
                     border border-slate-200
                     bg-white px-4 py-3
-                    text-sm leading-6 text-[#071A33]
+                    text-sm leading-6 text-[#071426]
                     outline-none transition-all
                     duration-300
                     placeholder:text-slate-400
-                    focus:border-[#C8A443]
+                    focus:border-[#3b82f6]
                     focus:ring-2
-                    focus:ring-[#C8A443]/15
+                    focus:ring-[#3b82f6]/20
+                    focus:shadow-[0_0_0_4px_rgba(59,130,246,0.12)]
                   "
                 />
               </div>
@@ -442,14 +445,14 @@ export default function Contact() {
                 className="
                   formal-button group mt-6
                   inline-flex min-h-12 w-full
-                  items-center justify-center gap-3
-                  px-7 py-3.5 text-[12px]
+                  items-center justify-center gap-3 rounded-lg
+                  px-8 py-3.5 text-[12px]
                   font-bold uppercase
                   tracking-[0.11em]
                   sm:w-auto sm:text-[13px]
                 "
               >
-                Send Message
+                <span>Send Message</span>
 
                 <FiSend
                   aria-hidden="true"
@@ -470,18 +473,19 @@ export default function Contact() {
                   <div
                     role="status"
                     className="
-                      mt-6 flex items-start gap-3
-                      border border-[#C8A443]/40
-                      bg-white px-4 py-4
+                      mt-6 flex items-start gap-3 rounded-xl
+                      border border-[#3b82f6]/40
+                      bg-white px-5 py-4
                       text-sm font-semibold
-                      leading-6 text-[#071A33]
+                      leading-6 text-[#071426]
+                      shadow-md
                     "
                   >
                     <FiCheckCircle
                       aria-hidden="true"
                       className="
                         mt-0.5 shrink-0 text-xl
-                        text-[#9F7B20]
+                        text-[#1d4ed8]
                       "
                     />
 

@@ -57,42 +57,22 @@ export default function Executive() {
         bg-white
       "
     >
-      {/* Decorative background */}
+      {/* Decorative background ambient glows */}
       <div
         aria-hidden="true"
         className="
-          absolute -left-44 top-16
+          pointer-events-none absolute -left-44 top-16
           h-[400px] w-[400px] rounded-full
-          bg-[#C8A443]/[0.07] blur-3xl
+          bg-[#3b82f6]/[0.05] blur-3xl
         "
       />
 
       <div
         aria-hidden="true"
         className="
-          absolute -right-48 bottom-10
+          pointer-events-none absolute -right-48 bottom-10
           h-[450px] w-[450px] rounded-full
-          bg-[#173B68]/[0.06] blur-3xl
-        "
-      />
-
-      <div
-        aria-hidden="true"
-        className="
-          absolute left-0 top-0
-          h-36 w-36 border-b border-r
-          border-[#C8A443]/20
-          sm:h-48 sm:w-48
-        "
-      />
-
-      <div
-        aria-hidden="true"
-        className="
-          absolute bottom-0 right-0
-          h-44 w-44 border-l border-t
-          border-[#C8A443]/20
-          sm:h-60 sm:w-60
+          bg-[#1d4ed8]/[0.04] blur-3xl
         "
       />
 
@@ -105,14 +85,14 @@ export default function Executive() {
               className="
                 h-[2px] w-10
                 bg-gradient-to-r
-                from-transparent to-[#C8A443]
+                from-transparent to-[#1d4ed8]
               "
             />
 
             <p
               className="
                 text-xs font-bold uppercase
-                tracking-[0.22em] text-[#9F7B20]
+                tracking-[0.22em] text-[#1d4ed8]
                 sm:text-sm
               "
             >
@@ -124,7 +104,7 @@ export default function Executive() {
               className="
                 h-[2px] w-10
                 bg-gradient-to-r
-                from-[#C8A443] to-transparent
+                from-[#1d4ed8] to-transparent
               "
             />
           </div>
@@ -134,12 +114,12 @@ export default function Executive() {
             className="
               mt-5 font-serif text-4xl
               font-bold leading-[1.08]
-              text-[#071A33]
+              text-[#071426]
               sm:text-5xl lg:text-[56px]
             "
           >
             Meet the Leaders Behind{" "}
-            <span className="gold-gradient-text block sm:inline">
+            <span className="bg-gradient-to-r from-[#1d4ed8] via-[#3b82f6] to-[#d4af37] bg-clip-text text-transparent block sm:inline">
               Our Vision
             </span>
           </h2>
@@ -147,9 +127,9 @@ export default function Executive() {
           <p
             className="
               mx-auto mt-6 max-w-2xl
-              text-[15px] leading-7
+              text-[15px] leading-8
               text-slate-600
-              sm:text-base sm:leading-8
+              sm:text-base
             "
           >
             Our executive committee promotes leadership, diplomacy and
@@ -158,7 +138,7 @@ export default function Executive() {
           </p>
         </div>
 
-        {/* Executive cards */}
+        {/* Executive cards Grid */}
         <div
           className="
             mt-12 grid gap-7
@@ -203,26 +183,26 @@ export default function Executive() {
                 }
                 viewport={{ once: true, amount: 0.15 }}
                 transition={{
-                  duration: 0.55,
+                  duration: 0.6,
                   delay: shouldReduceMotion ? 0 : index * 0.12,
-                  ease: "easeOut",
+                  ease: [0.22, 1, 0.36, 1],
                 }}
                 className="
-                  group relative overflow-hidden
+                  formal-card group relative overflow-hidden rounded-2xl
                   border border-slate-200/80
-                  bg-[#F8FAFC]
-                  shadow-[0_12px_35px_rgba(7,26,51,0.07)]
+                  bg-[#f8fafc]
+                  shadow-[0_12px_35px_rgba(7,20,38,0.06)]
                   transition-all duration-500
                   hover:-translate-y-2
-                  hover:border-[#C8A443]/45
-                  hover:shadow-[0_25px_60px_rgba(7,26,51,0.15)]
+                  hover:border-[#3b82f6]/50
+                  hover:shadow-[0_25px_60px_rgba(29,78,216,0.15)]
                 "
               >
                 {/* Member image */}
                 <div
                   className="
                     relative h-[330px]
-                    overflow-hidden bg-slate-200
+                    overflow-hidden bg-[#071426]
                     sm:h-[350px]
                   "
                 >
@@ -247,19 +227,19 @@ export default function Executive() {
                     className="
                       absolute inset-0
                       bg-gradient-to-t
-                      from-[#041126]/95
-                      via-[#071A33]/15
+                      from-[#071426]/90
+                      via-[#071426]/15
                       to-transparent
                     "
                   />
 
-                  {/* Member number */}
+                  {/* Member index watermark */}
                   <span
                     aria-hidden="true"
                     className="
                       absolute right-5 top-5
                       font-serif text-4xl
-                      font-bold text-white/25
+                      font-bold text-white/20
                     "
                   >
                     {String(index + 1).padStart(2, "0")}
@@ -282,11 +262,6 @@ export default function Executive() {
                     {socialLinks.map((social) => {
                       const Icon = social.icon;
 
-                      /*
-                       * Links containing "#" are placeholders.
-                       * They are kept visually disabled until real URLs
-                       * are added to the executives array.
-                       */
                       if (social.href === "#") {
                         return (
                           <span
@@ -294,10 +269,10 @@ export default function Executive() {
                             aria-label={`${social.label} link unavailable`}
                             className="
                               flex h-11 w-11
-                              cursor-not-allowed
+                              cursor-not-allowed rounded-xl
                               items-center justify-center
                               border border-white/15
-                              bg-white/70 text-[#071A33]/40
+                              bg-white/80 text-[#071426]/40
                             "
                           >
                             <Icon aria-hidden="true" />
@@ -320,18 +295,19 @@ export default function Executive() {
                           }
                           className="
                             flex h-11 w-11
-                            items-center justify-center
+                            items-center justify-center rounded-xl
                             border border-white/30
-                            bg-white text-lg text-[#071A33]
+                            bg-white text-lg text-[#071426]
                             shadow-md
                             transition-all duration-300
                             hover:-translate-y-1
-                            hover:border-[#C8A443]
-                            hover:bg-[#C8A443]
+                            hover:border-[#3b82f6]
+                            hover:bg-[#1d4ed8]
+                            hover:text-white
                             focus-visible:outline
                             focus-visible:outline-2
                             focus-visible:outline-offset-2
-                            focus-visible:outline-[#E2C66E]
+                            focus-visible:outline-[#3b82f6]
                           "
                         >
                           <Icon aria-hidden="true" />
@@ -345,25 +321,16 @@ export default function Executive() {
                 <div
                   className="
                     relative border-b-4
-                    border-[#C8A443]
+                    border-[#1d4ed8]
                     px-5 py-6 text-center
                   "
                 >
-                  <div
-                    aria-hidden="true"
-                    className="
-                      absolute right-0 top-0
-                      h-12 w-12 border-b border-l
-                      border-[#C8A443]/30
-                    "
-                  />
-
                   <p
                     className="
                       relative text-[10px]
                       font-extrabold uppercase
                       tracking-[0.17em]
-                      text-[#9F7B20]
+                      text-[#1d4ed8]
                       sm:text-xs
                     "
                   >
@@ -374,9 +341,9 @@ export default function Executive() {
                     className="
                       relative mt-2 font-serif
                       text-xl font-bold
-                      text-[#071A33]
+                      text-[#071426]
                       transition-colors duration-300
-                      group-hover:text-[#9F7B20]
+                      group-hover:text-[#1d4ed8]
                     "
                   >
                     {member.name}
@@ -394,14 +361,14 @@ export default function Executive() {
             className="
               formal-button group
               inline-flex min-h-12
-              items-center justify-center gap-3
-              px-7 py-3.5 text-xs
+              items-center justify-center gap-3 rounded-lg
+              px-8 py-3.5 text-xs
               font-bold uppercase
               tracking-[0.11em]
               sm:text-[13px]
             "
           >
-            Explore Our Leadership
+            <span>Explore Our Leadership</span>
 
             <FiArrowRight
               aria-hidden="true"
@@ -419,10 +386,10 @@ export default function Executive() {
           id="leadership-statement"
           className="
             relative mt-14 scroll-mt-28
-            overflow-hidden bg-[#071A33]
-            shadow-[0_25px_65px_rgba(7,26,51,0.2)]
+            overflow-hidden rounded-2xl bg-[#071426]
+            shadow-[0_30px_70px_rgba(7,20,38,0.3)]
             lg:mt-16
-            lg:grid lg:grid-cols-[0.7fr_1.3fr]
+            lg:grid lg:grid-cols-[0.75fr_1.25fr]
           "
         >
           <div
@@ -430,14 +397,14 @@ export default function Executive() {
             className="
               absolute -right-20 -top-24
               h-64 w-64 rounded-full
-              border border-[#C8A443]/15
+              border border-white/10
             "
           />
 
           <div
             className="
               relative flex items-center
-              justify-center bg-[#C8A443]
+              justify-center bg-gradient-to-br from-[#1d4ed8] to-[#1e3a8a]
               p-8 text-center
               sm:p-10 lg:p-12
             "
@@ -446,7 +413,7 @@ export default function Executive() {
               <p
                 className="
                   font-serif text-5xl
-                  font-bold text-[#071A33]
+                  font-bold text-white
                   sm:text-6xl
                 "
               >
@@ -457,7 +424,7 @@ export default function Executive() {
                 className="
                   mt-2 text-xs font-bold
                   uppercase tracking-[0.22em]
-                  text-[#071A33]/70
+                  text-[#e2c66e]
                   sm:text-sm
                 "
               >
@@ -470,7 +437,7 @@ export default function Executive() {
             <p
               className="
                 text-[11px] font-bold uppercase
-                tracking-[0.22em] text-[#E2C66E]
+                tracking-[0.22em] text-[#e2c66e]
                 sm:text-xs
               "
             >
@@ -491,7 +458,7 @@ export default function Executive() {
             <p
               className="
                 mt-4 max-w-3xl text-sm
-                leading-7 text-white/65
+                leading-7 text-slate-300
                 sm:text-[15px]
               "
             >

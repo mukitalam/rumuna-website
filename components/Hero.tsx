@@ -42,7 +42,7 @@ const heroHighlights = [
 export default function Hero() {
   const shouldReduceMotion = useReducedMotion() ?? false;
 
-  const animation = (delay: number, y = 24) => ({
+  const animation = (delay: number, y = 28) => ({
     initial: shouldReduceMotion
       ? false
       : {
@@ -56,9 +56,9 @@ export default function Hero() {
           y: 0,
         },
     transition: {
-      duration: 0.7,
+      duration: 0.85,
       delay: shouldReduceMotion ? 0 : delay,
-      ease: "easeOut" as const,
+      ease: [0.16, 1, 0.3, 1] as const,
     },
   });
 
@@ -69,159 +69,194 @@ export default function Hero() {
       className="
         relative flex min-h-[100svh]
         scroll-mt-20 items-center
-        overflow-hidden bg-[#0b192e]
+        overflow-hidden bg-[#060e1a]
         pt-[76px] md:pt-[88px]
       "
     >
-      {/* Background image */}
+      {/* Background image with high quality scaling and subtle tone */}
       <Image
         src="/hero.jpg"
         alt=""
         fill
         priority
         sizes="100vw"
-        className="object-cover object-center"
+        className="object-cover object-center scale-[1.03] filter brightness-[0.8] contrast-[1.05]"
       />
 
-      {/* Dark background overlay */}
+      {/* Institutional Dark Gradient Overlays for High Contrast */}
       <div
         aria-hidden="true"
         className="
           absolute inset-0
           bg-gradient-to-r
-          from-[#0b192e]/[0.98]
-          via-[#172554]/85
-          to-[#1e3a8a]/45
+          from-[#040914]/98
+          via-[#060e1a]/92
+          to-[#0b192e]/75
         "
       />
 
-      {/* Bottom overlay */}
       <div
         aria-hidden="true"
         className="
           absolute inset-0
           bg-gradient-to-t
-          from-[#0b192e]/95
-          via-transparent
-          to-[#0b192e]/35
+          from-[#040914]
+          via-[#060e1a]/50
+          to-[#060e1a]/70
         "
       />
 
-      {/* Royal light glow */}
+      {/* Multi-layered Luminous Ambient Light Blooms */}
       <div
         aria-hidden="true"
         className="
-          absolute inset-0
-          bg-[radial-gradient(circle_at_72%_35%,rgba(59,130,246,0.18),transparent_38%)]
+          pointer-events-none absolute inset-0
+          bg-[radial-gradient(circle_at_75%_35%,rgba(59,130,246,0.22),transparent_48%)]
         "
       />
 
-      {/* Subtle glossy overlay */}
       <div
         aria-hidden="true"
         className="
-          absolute inset-x-0 top-0 h-[45%]
-          bg-gradient-to-b
-          from-white/[0.035] to-transparent
+          pointer-events-none absolute inset-0
+          bg-[radial-gradient(circle_at_25%_25%,rgba(212,175,55,0.09),transparent_38%)]
         "
       />
 
-      {/* Decorative circles */}
       <div
         aria-hidden="true"
         className="
-          absolute -right-40 top-20
-          h-[500px] w-[500px]
+          pointer-events-none absolute -left-20 bottom-24
+          h-96 w-96 rounded-full bg-[#1d4ed8]/15 blur-3xl
+        "
+      />
+
+      {/* Gold atmospheric aurora orb */}
+      <div
+        aria-hidden="true"
+        className="
+          pointer-events-none absolute right-[18%] bottom-[22%]
+          h-[340px] w-[340px] rounded-full
+          bg-[radial-gradient(circle,rgba(212,175,55,0.12)_0%,rgba(212,175,55,0.04)_50%,transparent_70%)]
+          blur-3xl animate-aurora-float
+        "
+      />
+
+      {/* Top subtle reflection line */}
+      <div
+        aria-hidden="true"
+        className="
+          pointer-events-none absolute inset-x-0 top-0 h-[35%]
+          bg-gradient-to-b from-white/[0.05] to-transparent
+        "
+      />
+
+      {/* Architectural Geometric Diplomatic Rings */}
+      <div
+        aria-hidden="true"
+        className="
+          pointer-events-none absolute -right-44 top-12
+          h-[560px] w-[560px]
           rounded-full
-          border border-[#C8A443]/10
+          border border-white/[0.08]
+          shadow-[inset_0_0_80px_rgba(59,130,246,0.14)]
+          animate-ring-pulse
         "
       />
 
       <div
         aria-hidden="true"
         className="
-          absolute -right-20 top-40
-          h-[320px] w-[320px]
+          pointer-events-none absolute -right-20 top-36
+          h-[380px] w-[380px]
           rounded-full
-          border border-[#C8A443]/20
+          border border-[#3b82f6]/25
+          shadow-[0_0_40px_rgba(59,130,246,0.08)]
         "
       />
 
       <div
         aria-hidden="true"
         className="
-          absolute right-[8%] top-[28%]
-          h-24 w-24 rotate-45
-          border border-[#C8A443]/15
+          pointer-events-none absolute -right-4 top-52
+          h-[220px] w-[220px]
+          rounded-full
+          border border-[#d4af37]/20
+          shadow-[0_0_25px_rgba(212,175,55,0.1)]
         "
       />
 
-      {/* Hero content */}
+      {/* Hero content container */}
       <div
         className="
           section-container relative z-10
-          w-full pb-20 pt-16
-          sm:pb-24 sm:pt-20
-          md:pb-[150px]
+          w-full pb-24 pt-14
+          sm:pb-28 sm:pt-20
+          md:pb-[170px]
           lg:pt-24
         "
       >
         <div className="max-w-5xl">
-          {/* Small heading */}
+          {/* Badge Tagline with Pulsing Luminous Indicator */}
           <motion.div
             {...animation(0)}
             className="
-              mb-7 inline-flex
+              mb-6 inline-flex
               items-center gap-3
-              border-l-2 border-[#3b82f6]
-              bg-white/[0.08]
-              px-4 py-2.5
-              backdrop-blur-md
+              rounded-full
+              border border-blue-400/30
+              bg-blue-950/40
+              px-4 py-2
+              backdrop-blur-2xl
+              shadow-[0_4px_24px_rgba(29,78,216,0.25),inset_0_1px_0_rgba(255,255,255,0.12)]
             "
           >
             <span
               aria-hidden="true"
               className="
-                h-2 w-2 shrink-0
-                rotate-45 bg-[#60a5fa]
+                relative flex h-2.5 w-2.5 items-center justify-center
               "
-            />
+            >
+              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-[#60a5fa] opacity-75" />
+              <span className="relative inline-flex h-2 w-2 rounded-full bg-[#60a5fa]" />
+            </span>
 
             <p
               className="
-                text-[10px] font-bold uppercase
-                tracking-[0.18em]
+                text-[11px] font-bold uppercase
+                tracking-[0.22em]
                 text-[#93c5fd]
-                sm:text-xs sm:tracking-[0.22em]
+                sm:text-xs
               "
             >
               Leadership · Diplomacy · Global Dialogue
             </p>
           </motion.div>
 
-          {/* Main heading */}
+          {/* Main Serif Display Heading */}
           <motion.h1
             id="hero-heading"
-            {...animation(0.15, 32)}
+            {...animation(0.15, 36)}
             className="
               max-w-4xl font-serif
               text-4xl font-bold
               leading-[1.08] text-white
               sm:text-5xl
               md:text-6xl
-              lg:text-[72px]
+              lg:text-[76px]
+              tracking-[-0.01em]
             "
           >
             Empowering the
-
             <span
               className="
-                mt-1 block
+                mt-2 block
                 bg-gradient-to-r
                 from-[#93c5fd]
                 via-[#3b82f6]
-                to-[#60a5fa]
+                to-[#f3e5ab]
                 bg-clip-text text-transparent
+                drop-shadow-[0_4px_24px_rgba(59,130,246,0.3)]
               "
             >
               Diplomats of Tomorrow
@@ -233,8 +268,8 @@ export default function Hero() {
             {...animation(0.3)}
             className="
               mt-7 max-w-2xl
-              text-[15px] leading-7
-              text-white/70
+              text-[15px] leading-8
+              text-slate-300
               sm:text-lg sm:leading-8
             "
           >
@@ -243,13 +278,13 @@ export default function Hero() {
             negotiation, public speaking and critical-thinking skills.
           </motion.p>
 
-          {/* RUMUNA achievements */}
+          {/* RUMUNA achievements Grid with Luxury Micro-Surfaces */}
           <motion.div
             {...animation(0.45)}
             className="
-              mt-9 grid w-full
-              max-w-[960px] grid-cols-2
-              gap-3 sm:gap-4
+              mt-10 grid w-full
+              max-w-[980px] grid-cols-2
+              gap-3.5 sm:gap-5
               lg:grid-cols-4
             "
           >
@@ -257,37 +292,54 @@ export default function Hero() {
               <div
                 key={stat.label}
                 className="
-                  group relative min-h-[112px]
-                  overflow-hidden
-                  border border-[#3b82f6]/30
-                  bg-white/[0.06]
-                  px-4 py-5
-                  backdrop-blur-md
-                  transition-all duration-300
-                  hover:-translate-y-1
-                  hover:border-[#3b82f6]/70
-                  hover:bg-white/[0.1]
-                  hover:shadow-[0_15px_35px_rgba(0,0,0,0.22)]
+                  group relative min-h-[118px]
+                  overflow-hidden rounded-2xl
+                  border border-white/10
+                  bg-white/[0.04]
+                  px-5 py-5
+                  backdrop-blur-2xl
+                  shadow-[0_12px_32px_rgba(0,0,0,0.35),inset_0_1px_0_rgba(255,255,255,0.1)]
+                  transition-all duration-500
+                  hover:-translate-y-2
+                  hover:border-blue-400/55
+                  hover:bg-white/[0.09]
+                  hover:shadow-[0_24px_55px_rgba(29,78,216,0.3),0_0_20px_rgba(59,130,246,0.15)]
                 "
               >
-                {/* Top reflection */}
+                {/* Micro reflection top edge — animates gold on hover */}
                 <span
                   aria-hidden="true"
                   className="
-                    absolute inset-x-0 top-0 h-px
+                    absolute inset-x-0 top-0 h-[1px]
                     bg-gradient-to-r
                     from-transparent
-                    via-[#60a5fa]/80
+                    via-[#60a5fa]/70
                     to-transparent
+                    transition-all duration-500
+                    group-hover:via-[#d4af37]/80
+                  "
+                />
+
+                {/* Gold shimmer sweep on hover */}
+                <span
+                  aria-hidden="true"
+                  className="
+                    pointer-events-none absolute inset-0
+                    -translate-x-full skew-x-[-20deg]
+                    bg-gradient-to-r from-transparent via-white/[0.05] to-transparent
+                    transition-transform duration-700
+                    group-hover:translate-x-[200%]
                   "
                 />
 
                 <p
                   className="
-                    font-serif text-[28px]
+                    font-serif text-[32px]
                     font-bold leading-none
                     text-[#93c5fd]
-                    sm:text-[32px]
+                    group-hover:text-white
+                    transition-colors duration-300
+                    sm:text-[36px]
                   "
                 >
                   {stat.number}
@@ -296,11 +348,11 @@ export default function Hero() {
                 <p
                   className="
                     mt-2.5 max-w-[160px]
-                    text-[9px] font-semibold
-                    uppercase leading-[1.5]
-                    tracking-[0.11em]
+                    text-[10px] font-bold
+                    uppercase leading-[1.4]
+                    tracking-[0.14em]
                     text-white/80
-                    sm:text-[10px]
+                    sm:text-[11px]
                   "
                 >
                   {stat.label}
@@ -313,7 +365,7 @@ export default function Hero() {
           <motion.div
             {...animation(0.6)}
             className="
-              mt-9 flex flex-col
+              mt-10 flex flex-col
               gap-4 sm:flex-row
             "
           >
@@ -321,9 +373,9 @@ export default function Hero() {
               href="#register"
               className="
                 formal-button group
-                inline-flex min-h-[54px]
+                inline-flex min-h-[56px]
                 items-center justify-center
-                gap-3 px-8 py-3.5
+                gap-3 rounded-xl px-8 py-3.5
                 text-xs font-bold uppercase
                 tracking-[0.12em]
                 sm:text-[13px]
@@ -344,24 +396,27 @@ export default function Hero() {
             <Link
               href="#about"
               className="
-                group inline-flex min-h-[54px]
+                group inline-flex min-h-[56px]
                 items-center justify-center
-                gap-3 border border-white/40
-                bg-white/[0.08]
+                gap-3 rounded-xl border border-white/20
+                bg-white/[0.06]
                 px-8 py-3.5
                 text-xs font-bold uppercase
                 tracking-[0.12em]
                 !text-white
-                backdrop-blur-md
+                backdrop-blur-2xl
+                shadow-[0_8px_24px_rgba(0,0,0,0.25),inset_0_1px_0_rgba(255,255,255,0.12)]
                 transition-all duration-300
-                hover:border-[#C8A443]
-                hover:bg-[#C8A443]
-                hover:!text-[#071A33]
+                hover:border-[#d4af37]
+                hover:bg-[#d4af37]
+                hover:!text-[#060e1a]
+                hover:shadow-[0_12px_32px_rgba(212,175,55,0.35)]
+                hover:-translate-y-0.5
                 focus-visible:outline-none
                 focus-visible:ring-2
-                focus-visible:ring-[#E2C66E]
+                focus-visible:ring-[#3b82f6]
                 focus-visible:ring-offset-4
-                focus-visible:ring-offset-[#071A33]
+                focus-visible:ring-offset-[#060e1a]
                 sm:text-[13px]
               "
             >
@@ -397,12 +452,12 @@ export default function Hero() {
               }
         }
         transition={{
-          duration: 0.7,
+          duration: 0.8,
           delay: shouldReduceMotion ? 0 : 1,
         }}
         className="
-          absolute bottom-8 right-5 z-20
-          hidden lg:block xl:right-10
+          absolute bottom-10 right-6 z-20
+          hidden lg:block xl:right-12
         "
       >
         <Link
@@ -411,9 +466,9 @@ export default function Hero() {
           className="
             group flex flex-col
             items-center gap-3
-            text-white/50
+            text-white/40
             transition-colors duration-300
-            hover:text-[#E2C66E]
+            hover:text-[#93c5fd]
           "
         >
           <span
@@ -436,14 +491,14 @@ export default function Hero() {
         </Link>
       </motion.div>
 
-      {/* Desktop bottom highlights */}
+      {/* Desktop bottom highlights bar */}
       <div
         className="
           absolute bottom-0 left-0 z-10
           hidden w-full
           border-t border-white/10
-          bg-[#0b192e]/90
-          backdrop-blur-xl
+          bg-[#060e1a]/90
+          backdrop-blur-2xl
           md:block
         "
       >
@@ -467,14 +522,14 @@ export default function Hero() {
               <p
                 className="
                   text-[10px] font-bold uppercase
-                  tracking-[0.2em]
+                  tracking-[0.22em]
                   text-[#93c5fd]
                 "
               >
                 {item.label}
               </p>
 
-              <p className="mt-1.5 text-sm text-white/60">
+              <p className="mt-1 text-sm text-slate-300">
                 {item.description}
               </p>
             </div>

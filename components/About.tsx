@@ -1,5 +1,8 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
+import { motion, useReducedMotion } from "framer-motion";
 import { FiArrowRight, FiCheck } from "react-icons/fi";
 
 const highlights = [
@@ -10,24 +13,26 @@ const highlights = [
 ];
 
 export default function About() {
+  const shouldReduceMotion = useReducedMotion() ?? false;
+
   return (
     <section
       id="about"
       aria-labelledby="about-heading"
       className="
         section-padding relative
-        overflow-hidden bg-[#F8FAFC]
+        overflow-hidden bg-[#f8fafc]
       "
     >
-      {/* Decorative background */}
+      {/* Ambient background glows */}
       <div
         aria-hidden="true"
         className="
           pointer-events-none absolute
-          -right-32 top-20
-          h-[420px] w-[420px]
+          -right-36 top-16
+          h-[500px] w-[500px]
           rounded-full
-          bg-[#C8A443]/[0.07]
+          bg-[#3b82f6]/[0.06]
           blur-3xl
         "
       />
@@ -37,9 +42,9 @@ export default function About() {
         className="
           pointer-events-none absolute
           -left-40 bottom-0
-          h-[350px] w-[350px]
+          h-[450px] w-[450px]
           rounded-full
-          bg-[#173B68]/[0.05]
+          bg-[#1d4ed8]/[0.05]
           blur-3xl
         "
       />
@@ -48,39 +53,54 @@ export default function About() {
         className="
           section-container relative z-10
           grid items-center gap-12
-          lg:grid-cols-[1.12fr_0.88fr]
+          lg:grid-cols-[1.1fr_0.9fr]
           lg:gap-16 xl:gap-20
         "
       >
-        {/* Image area */}
-        <div
+        {/* Image area with architectural luxury framing */}
+        <motion.div
+          initial={shouldReduceMotion ? false : { opacity: 0, x: -30 }}
+          whileInView={shouldReduceMotion ? undefined : { opacity: 1, x: 0 }}
+          viewport={{ once: true, amount: 0.2 }}
+          transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
           className="
-            animate-fade-up relative
-            mx-auto w-full max-w-[680px]
+            relative mx-auto w-full max-w-[680px]
             lg:mx-0
           "
         >
-          {/* Gold border—kept behind the image */}
+          {/* Outer Accent Frames */}
           <div
             aria-hidden="true"
             className="
               absolute -left-3 -top-3
-              h-full w-full
-              border border-[#C8A443]/45
+              h-full w-full rounded-2xl
+              border border-blue-500/30
+              shadow-[0_0_30px_rgba(59,130,246,0.08)]
               sm:-left-4 sm:-top-4
             "
           />
 
-          {/* Main image */}
+          <div
+            aria-hidden="true"
+            className="
+              absolute -right-3 -bottom-3
+              h-full w-full rounded-2xl
+              border border-[#d4af37]/25
+              shadow-[0_0_20px_rgba(212,175,55,0.08)]
+              sm:-right-4 sm:-bottom-4
+            "
+          />
+
+          {/* Main Image Container */}
           <div
             className="
               group relative
-              h-[430px] w-full
-              overflow-hidden
-              bg-[#DDE4EC]
-              shadow-[0_30px_70px_rgba(7,26,51,0.18)]
-              sm:h-[540px]
-              lg:h-[650px]
+              h-[440px] w-full
+              overflow-hidden rounded-2xl
+              bg-[#0b192e]
+              shadow-[0_25px_60px_rgba(6,14,26,0.14)]
+              sm:h-[550px]
+              lg:h-[660px]
             "
           >
             <Image
@@ -94,39 +114,38 @@ export default function About() {
               "
               className="
                 object-cover object-center
-                transition-transform duration-700
-                ease-out group-hover:scale-[1.03]
+                transition-transform duration-1000
+                ease-out group-hover:scale-[1.045]
               "
             />
 
-            {/* Light bottom overlay */}
+            {/* Dark gradient overlay */}
             <div
               aria-hidden="true"
               className="
                 absolute inset-0
                 bg-gradient-to-t
-                from-[#071A33]/65
-                via-transparent
+                from-[#060e1a]/95
+                via-[#060e1a]/25
                 to-transparent
               "
             />
 
-            {/* Image label */}
+            {/* Image caption label */}
             <div
               className="
-                absolute bottom-5 left-5
-                max-w-[52%]
-                sm:bottom-7 sm:left-7
-                sm:max-w-[340px]
+                absolute bottom-6 left-6
+                max-w-[55%]
+                sm:bottom-8 sm:left-8
+                sm:max-w-[360px]
               "
             >
               <p
                 className="
-                  text-[9px] font-bold
-                  uppercase tracking-[0.18em]
-                  text-[#E2C66E]
-                  sm:text-[10px]
-                  sm:tracking-[0.22em]
+                  text-[10px] font-bold
+                  uppercase tracking-[0.22em]
+                  text-[#f3e5ab]
+                  sm:text-[11px]
                 "
               >
                 Leadership through dialogue
@@ -135,7 +154,7 @@ export default function About() {
               <p
                 className="
                   mt-2 hidden font-serif
-                  text-xl font-semibold
+                  text-xl font-bold
                   leading-snug text-white
                   sm:block sm:text-2xl
                 "
@@ -144,29 +163,32 @@ export default function About() {
               </p>
             </div>
 
-            {/* Small floating card inside the image */}
+            {/* Floating glassmorphism card inside the image */}
             <div
               className="
-                animate-scale-in
-                animation-delay-300
-                absolute bottom-5 right-4
-                w-[150px]
-                border-l-[3px]
-                border-[#C8A443]
-                bg-[#071A33]/90
-                px-4 py-4 text-white
-                shadow-[0_16px_35px_rgba(7,26,51,0.28)]
-                backdrop-blur-md
-                sm:bottom-7 sm:right-6
-                sm:w-[250px]
-                sm:px-6 sm:py-5
+                absolute bottom-6 right-5
+                w-[170px] overflow-hidden rounded-2xl
+                border-l-4 border-[#3b82f6]
+                border border-white/15
+                bg-[#060e1a]/92
+                px-5 py-5 text-white
+                shadow-[0_25px_55px_rgba(0,0,0,0.6),0_0_20px_rgba(59,130,246,0.15),inset_0_1px_0_rgba(255,255,255,0.18)]
+                backdrop-blur-2xl
+                sm:bottom-8 sm:right-7
+                sm:w-[270px]
+                sm:px-6 sm:py-6
               "
             >
+              {/* Shimmer top edge */}
+              <span
+                aria-hidden="true"
+                className="shimmer-line absolute top-0 left-0 right-0"
+              />
               <p
                 className="
-                  font-serif text-xl
+                  font-serif text-2xl
                   font-bold tracking-[0.04em]
-                  text-[#E2C66E]
+                  text-[#93c5fd]
                   sm:text-3xl
                 "
               >
@@ -176,7 +198,7 @@ export default function About() {
               <p
                 className="
                   mt-2 hidden text-xs
-                  leading-5 text-white/70
+                  leading-5 text-slate-300
                   sm:block
                 "
               >
@@ -185,18 +207,23 @@ export default function About() {
               </p>
             </div>
           </div>
-        </div>
+        </motion.div>
 
         {/* Content area */}
-        <div className="animate-fade-up animation-delay-200">
-          {/* Section label */}
+        <motion.div
+          initial={shouldReduceMotion ? false : { opacity: 0, x: 30 }}
+          whileInView={shouldReduceMotion ? undefined : { opacity: 1, x: 0 }}
+          viewport={{ once: true, amount: 0.2 }}
+          transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+        >
+          {/* Section label badge */}
           <div className="flex items-center gap-3">
             <span
               aria-hidden="true"
               className="
                 h-[2px] w-10
                 bg-gradient-to-r
-                from-[#9F7B20] to-[#E2C66E]
+                from-transparent to-[#1d4ed8]
               "
             />
 
@@ -204,7 +231,7 @@ export default function About() {
               className="
                 text-xs font-bold
                 uppercase tracking-[0.22em]
-                text-[#9F7B20]
+                text-[#1d4ed8]
                 sm:text-sm
               "
             >
@@ -218,15 +245,14 @@ export default function About() {
             className="
               mt-5 max-w-2xl
               font-serif text-[34px]
-              font-bold leading-[1.1]
-              text-[#071A33]
+              font-bold leading-[1.12]
+              text-[#060e1a]
               sm:text-[42px]
-              lg:text-[46px]
-              xl:text-[50px]
+              lg:text-[48px]
             "
           >
             Shaping Future Leaders Through{" "}
-            <span className="gold-gradient-text">
+            <span className="diplomatic-title-gradient">
               Diplomacy and Dialogue
             </span>
           </h2>
@@ -236,8 +262,8 @@ export default function About() {
             className="
               mt-6 h-px w-full
               bg-gradient-to-r
-              from-[#C8A443]/65
-              via-[#C8A443]/15
+              from-[#3b82f6]/40
+              via-[#3b82f6]/10
               to-transparent
             "
           />
@@ -245,9 +271,9 @@ export default function About() {
           {/* Description */}
           <p
             className="
-              mt-7 text-[14px]
-              leading-7 text-slate-600
-              sm:text-[15px] sm:leading-8
+              mt-7 text-[15px]
+              leading-8 text-slate-600
+              sm:text-[16px]
             "
           >
             Rajshahi University Model United Nations Association is a
@@ -258,9 +284,9 @@ export default function About() {
 
           <p
             className="
-              mt-4 text-[14px]
-              leading-7 text-slate-600
-              sm:text-[15px] sm:leading-8
+              mt-4 text-[15px]
+              leading-8 text-slate-600
+              sm:text-[16px]
             "
           >
             Through conferences, workshops and interactive sessions, RUMUNA
@@ -268,11 +294,11 @@ export default function About() {
             affairs and participate in meaningful global dialogue.
           </p>
 
-          {/* Highlights */}
+          {/* Highlights List */}
           <ul
             aria-label="RUMUNA development areas"
             className="
-              mt-8 grid gap-3
+              mt-8 grid gap-3.5
               sm:grid-cols-2 sm:gap-4
             "
           >
@@ -280,39 +306,52 @@ export default function About() {
               <li
                 key={item}
                 className="
-                  group flex items-start gap-3
-                  border border-slate-200/80
-                  bg-white px-4 py-4
-                  shadow-[0_8px_25px_rgba(7,26,51,0.04)]
+                  group relative flex items-start gap-3.5
+                  overflow-hidden
+                  rounded-2xl border border-slate-200/90
+                  bg-white px-4.5 py-4
+                  shadow-[0_8px_24px_rgba(6,14,26,0.04)]
                   transition-all duration-300
                   hover:-translate-y-1
-                  hover:border-[#C8A443]/50
-                  hover:shadow-[0_14px_35px_rgba(7,26,51,0.09)]
+                  hover:border-[#3b82f6]/50
+                  hover:shadow-[0_16px_36px_rgba(29,78,216,0.12)]
                 "
               >
+                {/* Left accent line reveal */}
+                <span
+                  aria-hidden="true"
+                  className="
+                    absolute left-0 inset-y-0
+                    w-[3px] rounded-r-full
+                    bg-gradient-to-b from-[#1d4ed8] to-[#d4af37]
+                    scale-y-0 origin-top
+                    transition-transform duration-400
+                    group-hover:scale-y-100
+                  "
+                />
                 <span
                   className="
                     mt-0.5 flex h-6 w-6
                     shrink-0 items-center
                     justify-center rounded-full
-                    bg-[#C8A443]/15
-                    text-[#9F7B20]
-                    transition-colors duration-300
-                    group-hover:bg-[#C8A443]
-                    group-hover:text-[#071A33]
+                    bg-[#1d4ed8]/10
+                    text-[#1d4ed8]
+                    transition-all duration-300
+                    group-hover:bg-[#1d4ed8]
+                    group-hover:text-white
+                    group-hover:shadow-[0_0_12px_rgba(29,78,216,0.4)]
                   "
                 >
                   <FiCheck
                     aria-hidden="true"
-                    className="text-sm"
+                    className="text-xs font-bold"
                   />
                 </span>
 
                 <span
                   className="
-                    text-[12px] font-semibold
-                    leading-6 text-[#24364D]
-                    sm:text-[13px]
+                    text-[13px] font-semibold
+                    leading-6 text-slate-800
                   "
                 >
                   {item}
@@ -328,9 +367,9 @@ export default function About() {
               formal-button group mt-9
               inline-flex min-h-12
               items-center justify-center
-              gap-3 px-7 py-3.5
+              gap-3 rounded-xl px-8 py-3.5
               text-[12px] font-bold
-              uppercase tracking-[0.1em]
+              uppercase tracking-[0.11em]
               sm:text-[13px]
             "
           >
@@ -345,7 +384,7 @@ export default function About() {
               "
             />
           </Link>
-        </div>
+        </motion.div>
       </div>
     </section>
   );

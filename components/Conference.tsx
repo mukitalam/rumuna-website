@@ -37,27 +37,27 @@ function ConferenceCard({
       }
       viewport={{ once: true, amount: 0.15 }}
       transition={{
-        duration: 0.6,
-        delay: shouldReduceMotion ? 0 : index * 0.12,
-        ease: "easeOut" as const,
+        duration: 0.7,
+        delay: shouldReduceMotion ? 0 : index * 0.14,
+        ease: [0.16, 1, 0.3, 1],
       }}
       className="
-        group flex h-full flex-col
-        overflow-hidden
+        formal-card group flex h-full flex-col
+        overflow-hidden rounded-3xl
         border border-slate-200/90
         bg-white
-        shadow-[0_18px_50px_rgba(7,26,51,0.08)]
+        shadow-[0_18px_50px_rgba(6,14,26,0.06)]
         transition-all duration-500
-        hover:-translate-y-1.5
-        hover:border-[#C8A443]/55
-        hover:shadow-[0_26px_65px_rgba(7,26,51,0.14)]
+        hover:-translate-y-2.5
+        hover:border-[#3b82f6]/50
+        hover:shadow-[0_30px_70px_rgba(29,78,216,0.16)]
       "
     >
-      {/* Conference image */}
+      {/* Conference image container */}
       <div
         className="
           relative aspect-[16/10]
-          overflow-hidden bg-slate-200
+          overflow-hidden bg-[#060e1a]
         "
       >
         <Image
@@ -73,37 +73,38 @@ function ConferenceCard({
           className="
             object-cover object-center
             transition-transform
-            duration-700 ease-out
-            group-hover:scale-[1.045]
+            duration-1000 ease-out
+            group-hover:scale-[1.05]
           "
         />
 
-        {/* Image overlay */}
+        {/* Dark image overlay */}
         <div
           aria-hidden="true"
           className="
             absolute inset-0
             bg-gradient-to-t
-            from-[#071A33]/75
-            via-[#071A33]/10
+            from-[#060e1a]/95
+            via-[#060e1a]/25
             to-transparent
           "
         />
 
-        {/* Edition badge */}
+        {/* Edition badge chip with refined gold accent */}
         <span
           className="
             absolute left-5 top-5
-            border-l-[3px]
-            border-[#071A33]
-            bg-[#D9B94E]
-            px-4 py-2
-            text-[10px] font-bold
+            rounded-full
+            border border-[#d4af37]/45
+            ring-1 ring-[#d4af37]/20
+            bg-[#060e1a]/92
+            px-4 py-1.5
+            text-[11px] font-bold
             uppercase tracking-[0.16em]
-            text-[#071A33]
-            shadow-[0_10px_25px_rgba(0,0,0,0.16)]
+            text-[#f3e5ab]
+            backdrop-blur-xl
+            shadow-[0_8px_28px_rgba(0,0,0,0.5),0_0_15px_rgba(212,175,55,0.15),inset_0_1px_0_rgba(255,255,255,0.18)]
             sm:left-6 sm:top-6
-            sm:text-[11px]
           "
         >
           {conference.edition}
@@ -117,12 +118,20 @@ function ConferenceCard({
             sm:bottom-6 sm:left-6 sm:right-6
           "
         >
+          {/* Cinematic side vignette */}
+          <div
+            aria-hidden="true"
+            className="
+              pointer-events-none absolute
+              inset-x-0 bottom-0 h-[180px]
+              bg-gradient-to-t from-[#060e1a] to-transparent
+            "
+          />
           <p
             className="
-              text-[9px] font-bold
-              uppercase tracking-[0.2em]
-              text-[#E2C66E]
-              sm:text-[10px]
+              text-[10px] font-bold
+              uppercase tracking-[0.22em]
+              text-[#93c5fd]
             "
           >
             Conference Theme
@@ -131,9 +140,8 @@ function ConferenceCard({
           <p
             className="
               mt-1.5 max-w-lg
-              text-[13px] font-semibold
-              leading-5 text-white/90
-              sm:text-sm
+              font-serif text-[15px] sm:text-base font-semibold
+              leading-snug text-white
             "
           >
             {conference.theme}
@@ -145,62 +153,72 @@ function ConferenceCard({
       <div
         className="
           flex flex-1 flex-col
-          p-5 sm:p-7
+          p-6 sm:p-8
         "
       >
         <h3
           className="
             font-serif text-[24px]
             font-bold leading-[1.2]
-            text-[#071A33]
+            text-[#060e1a]
+            transition-colors duration-300
+            group-hover:text-[#1d4ed8]
             sm:text-[28px]
           "
         >
           {conference.title}
         </h3>
 
-        {/* Date and venue */}
+        {/* Date and venue micro-widgets */}
         <div
           className="
             mt-5 grid gap-3
-            border-y border-slate-200
+            border-y border-slate-100
             py-4 text-[12px]
             text-slate-600
             sm:grid-cols-2 sm:text-[13px]
           "
         >
-          <div className="flex items-start gap-2.5">
+          <div className="flex items-center gap-2.5">
             <span
               className="
-                mt-0.5 flex h-7 w-7
+                flex h-8 w-8
                 shrink-0 items-center
-                justify-center
-                bg-[#C8A443]/15
-                text-[#9F7B20]
+                justify-center rounded-xl
+                bg-[#1d4ed8]/10
+                text-[#1d4ed8]
+                transition-all duration-300
+                group-hover:bg-[#1d4ed8]
+                group-hover:text-white
+                group-hover:shadow-[0_0_20px_rgba(29,78,216,0.5)]
               "
             >
               <FiCalendar aria-hidden="true" />
             </span>
 
-            <span className="leading-6">
+            <span className="leading-6 font-semibold text-slate-800">
               {conference.date}
             </span>
           </div>
 
-          <div className="flex items-start gap-2.5">
+          <div className="flex items-center gap-2.5">
             <span
               className="
-                mt-0.5 flex h-7 w-7
+                flex h-8 w-8
                 shrink-0 items-center
-                justify-center
-                bg-[#C8A443]/15
-                text-[#9F7B20]
+                justify-center rounded-xl
+                bg-[#1d4ed8]/10
+                text-[#1d4ed8]
+                transition-all duration-300
+                group-hover:bg-[#1d4ed8]
+                group-hover:text-white
+                group-hover:shadow-[0_0_20px_rgba(29,78,216,0.5)]
               "
             >
               <FiMapPin aria-hidden="true" />
             </span>
 
-            <span className="leading-6">
+            <span className="leading-6 font-semibold text-slate-800">
               {conference.venue}
             </span>
           </div>
@@ -209,9 +227,9 @@ function ConferenceCard({
         <p
           className="
             mt-5 flex-1
-            text-[13px] leading-7
+            text-[14px] leading-7
             text-slate-600
-            sm:text-[14px]
+            sm:text-[15px]
           "
         >
           {conference.description}
@@ -224,23 +242,13 @@ function ConferenceCard({
             target="_blank"
             rel="noopener noreferrer"
             className="
-              group/button mt-7
-              inline-flex min-h-[50px]
+              formal-button group/button mt-7
+              inline-flex min-h-[48px]
               w-fit items-center
               justify-center gap-3
-              bg-[#071A33]
-              px-6 py-3
+              rounded-xl px-7 py-3
               text-[11px] font-bold
-              uppercase tracking-[0.13em]
-              text-white
-              shadow-[0_12px_28px_rgba(7,26,51,0.18)]
-              transition-all duration-300
-              hover:bg-[#C8A443]
-              hover:text-[#071A33]
-              focus-visible:outline-none
-              focus-visible:ring-2
-              focus-visible:ring-[#C8A443]
-              focus-visible:ring-offset-4
+              uppercase tracking-[0.12em]
               sm:text-[12px]
             "
           >
@@ -260,23 +268,13 @@ function ConferenceCard({
           <Link
             href="#register"
             className="
-              group/button mt-7
-              inline-flex min-h-[50px]
+              formal-button group/button mt-7
+              inline-flex min-h-[48px]
               w-fit items-center
               justify-center gap-3
-              bg-[#071A33]
-              px-6 py-3
+              rounded-xl px-7 py-3
               text-[11px] font-bold
-              uppercase tracking-[0.13em]
-              text-white
-              shadow-[0_12px_28px_rgba(7,26,51,0.18)]
-              transition-all duration-300
-              hover:bg-[#C8A443]
-              hover:text-[#071A33]
-              focus-visible:outline-none
-              focus-visible:ring-2
-              focus-visible:ring-[#C8A443]
-              focus-visible:ring-offset-4
+              uppercase tracking-[0.12em]
               sm:text-[12px]
             "
           >
@@ -294,20 +292,6 @@ function ConferenceCard({
           </Link>
         )}
       </div>
-
-      {/* Bottom gold line */}
-      <div
-        aria-hidden="true"
-        className="
-          h-[3px] w-0
-          bg-gradient-to-r
-          from-[#9F7B20]
-          via-[#E2C66E]
-          to-[#9F7B20]
-          transition-all duration-500
-          group-hover:w-full
-        "
-      />
     </motion.article>
   );
 }
@@ -322,7 +306,7 @@ export default function Conference() {
       className="
         section-padding relative
         scroll-mt-24 overflow-hidden
-        bg-[#F8FAFC]
+        bg-[#f8fafc]
       "
     >
       {/* Background decorations */}
@@ -331,8 +315,8 @@ export default function Conference() {
         className="
           pointer-events-none absolute
           -right-40 top-16
-          h-[420px] w-[420px]
-          rounded-full bg-[#C8A443]/[0.07]
+          h-[480px] w-[480px]
+          rounded-full bg-[#3b82f6]/[0.06]
           blur-3xl
         "
       />
@@ -342,8 +326,8 @@ export default function Conference() {
         className="
           pointer-events-none absolute
           -left-40 bottom-10
-          h-[380px] w-[380px]
-          rounded-full bg-[#173B68]/[0.05]
+          h-[420px] w-[420px]
+          rounded-full bg-[#1d4ed8]/[0.05]
           blur-3xl
         "
       />
@@ -363,8 +347,8 @@ export default function Conference() {
           }
           viewport={{ once: true, amount: 0.3 }}
           transition={{
-            duration: 0.65,
-            ease: "easeOut" as const,
+            duration: 0.7,
+            ease: [0.16, 1, 0.3, 1],
           }}
           className="mx-auto max-w-3xl text-center"
         >
@@ -374,14 +358,14 @@ export default function Conference() {
               className="
                 h-[2px] w-9
                 bg-gradient-to-r
-                from-transparent to-[#C8A443]
+                from-transparent to-[#1d4ed8]
               "
             />
 
             <p
               className="
-                text-[10px] font-bold uppercase
-                tracking-[0.24em] text-[#9F7B20]
+                text-[11px] font-bold uppercase
+                tracking-[0.22em] text-[#1d4ed8]
                 sm:text-xs
               "
             >
@@ -393,7 +377,7 @@ export default function Conference() {
               className="
                 h-[2px] w-9
                 bg-gradient-to-l
-                from-transparent to-[#C8A443]
+                from-transparent to-[#1d4ed8]
               "
             />
           </div>
@@ -403,13 +387,13 @@ export default function Conference() {
             className="
               mt-5 font-serif text-[34px]
               font-bold leading-[1.1]
-              text-[#071A33]
+              text-[#060e1a]
               sm:text-[44px]
               lg:text-[52px]
             "
           >
             Diplomatic{" "}
-            <span className="gold-gradient-text">
+            <span className="diplomatic-title-gradient">
               Experiences
             </span>
           </h2>
@@ -417,9 +401,9 @@ export default function Conference() {
           <p
             className="
               mx-auto mt-5 max-w-2xl
-              text-[14px] leading-7
+              text-[15px] leading-8
               text-slate-600
-              sm:text-[15px] sm:leading-8
+              sm:text-[16px]
             "
           >
             Explore conferences organized by Rajshahi University Model
@@ -432,7 +416,7 @@ export default function Conference() {
               mx-auto mt-7 h-px w-28
               bg-gradient-to-r
               from-transparent
-              via-[#C8A443]
+              via-[#3b82f6]
               to-transparent
             "
           />

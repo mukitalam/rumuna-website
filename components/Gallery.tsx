@@ -79,15 +79,15 @@ function GalleryCard({
         amount: 0.15,
       }}
       transition={{
-        duration: 0.6,
+        duration: 0.65,
         delay: shouldReduceMotion ? 0 : index * 0.1,
-        ease: "easeOut" as const,
+        ease: [0.22, 1, 0.36, 1],
       }}
       className={`
-        group relative overflow-hidden
+        group relative overflow-hidden rounded-2xl
         border border-white/10
-        bg-[#071A33]
-        shadow-[0_14px_35px_rgba(7,26,51,0.12)]
+        bg-[#071426]
+        shadow-[0_16px_40px_rgba(7,20,38,0.12)]
         ${image.className}
       `}
     >
@@ -109,21 +109,21 @@ function GalleryCard({
         "
       />
 
-      {/* Image overlay */}
+      {/* Dark image overlay */}
       <div
         aria-hidden="true"
         className="
           absolute inset-0
           bg-gradient-to-t
-          from-[#041126]/95
-          via-[#071A33]/15
+          from-[#071426]/95
+          via-[#071426]/20
           to-transparent
           transition-colors duration-500
-          group-hover:via-[#071A33]/35
+          group-hover:via-[#071426]/40
         "
       />
 
-      {/* Gallery number */}
+      {/* Gallery index watermark */}
       <span
         aria-hidden="true"
         className="
@@ -146,18 +146,19 @@ function GalleryCard({
           absolute right-5 top-5
           flex h-11 w-11
           items-center justify-center
-          border border-[#E2C66E]/40
-          bg-[#C8A443]
-          text-[#071A33]
+          rounded-xl
+          border border-[#3b82f6]/40
+          bg-[#1d4ed8]
+          text-white
           opacity-100 shadow-lg
           transition-all duration-300
           hover:-translate-y-1
-          hover:bg-[#E2C66E]
+          hover:bg-[#3b82f6]
           focus-visible:outline-none
           focus-visible:ring-2
-          focus-visible:ring-[#E2C66E]
+          focus-visible:ring-[#3b82f6]
           focus-visible:ring-offset-2
-          focus-visible:ring-offset-[#071A33]
+          focus-visible:ring-offset-[#071426]
           sm:translate-y-3
           sm:opacity-0
           sm:group-hover:translate-y-0
@@ -184,7 +185,7 @@ function GalleryCard({
           className="
             text-[10px] font-extrabold
             uppercase tracking-[0.2em]
-            text-[#E2C66E]
+            text-[#e2c66e]
             sm:text-[11px]
           "
         >
@@ -209,9 +210,10 @@ function GalleryCard({
           aria-hidden="true"
           className="
             mt-4 h-[2px] w-10
-            bg-[#C8A443]
+            bg-[#3b82f6]
             transition-all duration-500
             group-hover:w-16
+            group-hover:bg-[#60a5fa]
           "
         />
       </div>
@@ -228,16 +230,16 @@ export default function Gallery() {
       aria-labelledby="gallery-heading"
       className="
         section-padding relative scroll-mt-24
-        overflow-hidden bg-[#F8FAFC]
+        overflow-hidden bg-[#f8fafc]
       "
     >
-      {/* Decorative background */}
+      {/* Decorative ambient background */}
       <div
         aria-hidden="true"
         className="
-          absolute -left-44 top-1/4
+          pointer-events-none absolute -left-44 top-1/4
           h-[420px] w-[420px]
-          rounded-full bg-[#C8A443]/[0.07]
+          rounded-full bg-[#3b82f6]/[0.05]
           blur-3xl
         "
       />
@@ -245,19 +247,10 @@ export default function Gallery() {
       <div
         aria-hidden="true"
         className="
-          absolute -right-52 bottom-10
+          pointer-events-none absolute -right-52 bottom-10
           h-[480px] w-[480px]
-          rounded-full bg-[#173B68]/[0.06]
+          rounded-full bg-[#1d4ed8]/[0.04]
           blur-3xl
-        "
-      />
-
-      <div
-        aria-hidden="true"
-        className="
-          absolute -left-20 top-1/3
-          h-72 w-72 rounded-full
-          border border-[#C8A443]/15
         "
       />
 
@@ -276,14 +269,14 @@ export default function Gallery() {
                 className="
                   h-[2px] w-10
                   bg-gradient-to-r
-                  from-[#9F7B20] to-[#E2C66E]
+                  from-transparent to-[#1d4ed8]
                 "
               />
 
               <p
                 className="
                   text-xs font-bold uppercase
-                  tracking-[0.22em] text-[#9F7B20]
+                  tracking-[0.22em] text-[#1d4ed8]
                   sm:text-sm
                 "
               >
@@ -296,20 +289,22 @@ export default function Gallery() {
               className="
                 mt-5 max-w-2xl font-serif
                 text-4xl font-bold leading-[1.08]
-                text-[#071A33]
+                text-[#071426]
                 sm:text-5xl lg:text-[56px]
               "
             >
               Moments That Define{" "}
-              <span className="gold-gradient-text">Our Journey</span>
+              <span className="bg-gradient-to-r from-[#1d4ed8] via-[#3b82f6] to-[#d4af37] bg-clip-text text-transparent">
+                Our Journey
+              </span>
             </h2>
 
             <p
               className="
                 mt-6 max-w-2xl
-                text-[15px] leading-7
+                text-[15px] leading-8
                 text-slate-600
-                sm:text-base sm:leading-8
+                sm:text-base
               "
             >
               Explore memorable moments from RUMUNA conferences, diplomatic
@@ -323,14 +318,14 @@ export default function Gallery() {
             className="
               group inline-flex w-fit
               items-center gap-2.5
-              border-b-2 border-[#C8A443]
+              border-b-2 border-[#1d4ed8]
               pb-2 text-xs font-bold uppercase
-              tracking-[0.12em] text-[#071A33]
+              tracking-[0.12em] text-[#071426]
               transition-colors duration-300
-              hover:text-[#9F7B20]
+              hover:text-[#1d4ed8]
               focus-visible:outline-none
               focus-visible:ring-2
-              focus-visible:ring-[#C8A443]
+              focus-visible:ring-[#3b82f6]
               focus-visible:ring-offset-4
               sm:text-sm
             "
@@ -340,7 +335,7 @@ export default function Gallery() {
             <FiArrowRight
               aria-hidden="true"
               className="
-                text-[#9F7B20]
+                text-[#1d4ed8]
                 transition-transform duration-300
                 group-hover:translate-x-1.5
               "
@@ -353,7 +348,7 @@ export default function Gallery() {
           id="gallery-grid"
           className="
             mt-12 grid scroll-mt-28
-            auto-rows-[270px] gap-4
+            auto-rows-[270px] gap-5
             md:grid-cols-2 md:auto-rows-[260px]
             lg:mt-16 lg:grid-cols-4
           "
@@ -368,24 +363,24 @@ export default function Gallery() {
           ))}
         </div>
 
-        {/* Bottom callout */}
+        {/* Bottom callout banner */}
         <div
           className="
-            relative mt-12 overflow-hidden
-            bg-[#071A33] px-6 py-8
-            shadow-[0_24px_60px_rgba(7,26,51,0.2)]
-            sm:px-9 sm:py-10
+            relative mt-12 overflow-hidden rounded-2xl
+            bg-[#071426] px-6 py-9
+            shadow-[0_30px_70px_rgba(7,20,38,0.3)]
+            sm:px-10 sm:py-12
             md:flex md:items-center
             md:justify-between md:gap-8
-            lg:mt-16 lg:px-12
+            lg:mt-16 lg:px-14
           "
         >
           <div
             aria-hidden="true"
             className="
               absolute -right-20 -top-24
-              h-56 w-56 rounded-full
-              border border-[#C8A443]/20
+              h-64 w-64 rounded-full
+              border border-white/10
             "
           />
 
@@ -393,8 +388,8 @@ export default function Gallery() {
             aria-hidden="true"
             className="
               absolute -right-8 -top-12
-              h-40 w-40 rounded-full
-              border border-[#C8A443]/15
+              h-44 w-44 rounded-full
+              border border-[#3b82f6]/20
             "
           />
 
@@ -403,7 +398,7 @@ export default function Gallery() {
               className="
                 text-[11px] font-bold uppercase
                 tracking-[0.22em]
-                text-[#E2C66E]
+                text-[#e2c66e]
                 sm:text-xs
               "
             >
@@ -424,7 +419,7 @@ export default function Gallery() {
               className="
                 mt-3 max-w-xl
                 text-sm leading-7
-                text-white/60
+                text-slate-300
               "
             >
               Join a community where diplomacy, leadership and meaningful
@@ -437,8 +432,8 @@ export default function Gallery() {
             className="
               formal-button group relative mt-7
               inline-flex min-h-12 shrink-0
-              items-center justify-center gap-3
-              px-7 py-3.5
+              items-center justify-center gap-3 rounded-lg
+              px-8 py-3.5
               text-xs font-bold uppercase
               tracking-[0.11em]
               sm:text-[13px]

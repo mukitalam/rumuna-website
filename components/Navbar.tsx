@@ -3,16 +3,31 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { FiChevronDown, FiMenu, FiX } from "react-icons/fi";
+import {
+  FiChevronDown,
+  FiMenu,
+  FiX,
+  FiArrowUpRight,
+  FiArrowRight,
+  FiGlobe,
+  FiAward,
+  FiUsers,
+  FiBookOpen,
+  FiCalendar,
+  FiImage,
+  FiMail,
+} from "react-icons/fi";
 
 type DropdownItem = {
   name: string;
   href: string;
+  description?: string;
 };
 
 type NavigationItem = {
   name: string;
   href: string;
+  icon?: React.ComponentType<{ className?: string }>;
   dropdown?: DropdownItem[];
 };
 
@@ -20,89 +35,106 @@ const navigation: NavigationItem[] = [
   {
     name: "Home",
     href: "#home",
+    icon: FiGlobe,
   },
   {
     name: "About",
     href: "#about",
+    icon: FiGlobe,
   },
   {
     name: "Conferences",
     href: "#conference",
+    icon: FiAward,
     dropdown: [
       {
         name: "NBMUN",
         href: "#conference",
+        description: "National Bangladesh Model UN Conference",
       },
       {
         name: "RUMUN",
         href: "#conference",
+        description: "Flagship University MUN Conference",
       },
       {
         name: "Previous Conferences",
         href: "#events",
+        description: "Explore our archive of past sessions",
       },
     ],
   },
   {
     name: "Events",
     href: "#events",
+    icon: FiCalendar,
   },
   {
     name: "Organization",
     href: "#governing-body",
+    icon: FiUsers,
     dropdown: [
       {
         name: "Governing Body",
         href: "#governing-body",
+        description: "Board of Trustees & Advisory Council",
       },
       {
         name: "Executive Committee",
-        href: "#executive",
+        href: "#executive-members",
+        description: "Current Secretariat & Team Leaders",
       },
       {
         name: "Faculty Advisors",
         href: "#faculty-advisors",
+        description: "Distinguished mentors & patrons",
       },
       {
         name: "Former Leaders",
         href: "#former-leaders",
+        description: "Honoring our alumni presidents & executives",
       },
     ],
   },
   {
     name: "Resources",
     href: "#resources",
+    icon: FiBookOpen,
     dropdown: [
       {
         name: "Study Guides",
         href: "#resources",
+        description: "Comprehensive committee background guides",
       },
       {
         name: "Rules of Procedure",
         href: "#resources",
+        description: "Standard UN diplomatic RoP handbook",
       },
       {
         name: "Delegate Resources",
         href: "#resources",
+        description: "Position papers & resolution templates",
       },
     ],
   },
   {
     name: "Gallery",
     href: "#gallery",
+    icon: FiImage,
   },
   {
     name: "Contact",
     href: "#contact",
+    icon: FiMail,
   },
 ];
 
 export default function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [activeDropdown, setActiveDropdown] = useState<string | null>(
-    null,
-  );
+  const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
   const [isScrolled, setIsScrolled] = useState(false);
+  const [activeSection, setActiveSection] = useState<string>("home");
 
   function closeMenu() {
     setMobileMenuOpen(false);
@@ -115,27 +147,54 @@ export default function Navbar() {
   }
 
   function toggleDropdown(name: string) {
-    setActiveDropdown((current) =>
-      current === name ? null : name,
-    );
+    setActiveDropdown((current) => (current === name ? null : name));
   }
 
+  // Scroll detection for navbar elevation
   useEffect(() => {
     function handleScroll() {
       setIsScrolled(window.scrollY > 20);
     }
 
     handleScroll();
-
-    window.addEventListener("scroll", handleScroll, {
-      passive: true,
-    });
-
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  // Section highlight observer
+  useEffect(() => {
+    const sections = [
+      "home",
+      "about",
+      "conference",
+      "events",
+      "governing-body",
+      "resources",
+      "gallery",
+      "contact",
+    ];
+
+    function observeSections() {
+      const scrollPos = window.scrollY + 180;
+      for (const sectionId of sections) {
+        const el = document.getElementById(sectionId);
+        if (el) {
+          const top = el.offsetTop;
+          const height = el.offsetHeight;
+          if (scrollPos >= top && scrollPos < top + height) {
+            setActiveSection(sectionId);
+            break;
+          }
+        }
+      }
+    }
+
+    window.addEventListener("scroll", observeSections, { passive: true });
+    observeSections();
+    return () => window.removeEventListener("scroll", observeSections);
+  }, []);
+
+  // Close on Escape or resize
   useEffect(() => {
     function handleKeyDown(event: KeyboardEvent) {
       if (event.key === "Escape") {
@@ -158,6 +217,7 @@ export default function Navbar() {
     };
   }, []);
 
+  // Lock body scroll when mobile menu is open
   useEffect(() => {
     if (!mobileMenuOpen) {
       document.body.style.overflow = "";
@@ -165,581 +225,366 @@ export default function Navbar() {
     }
 
     document.body.style.overflow = "hidden";
-
     return () => {
       document.body.style.overflow = "";
     };
   }, [mobileMenuOpen]);
 
   return (
-    <header
-      className={`
-        fixed inset-x-0 top-0 z-50
-        h-[76px] border-b text-white
-        backdrop-blur-xl
-        transition-all duration-500
-        motion-reduce:transition-none
-        md:h-[88px]
-        ${
-          isScrolled
-            ? `
-              border-white/15
-              bg-[linear-gradient(180deg,rgba(59,130,246,0.12)_0%,rgba(255,255,255,0.03)_38%,rgba(255,255,255,0)_65%),rgba(11,25,46,0.96)]
-              shadow-[0_12px_40px_rgba(0,0,0,0.3),inset_0_1px_0_rgba(255,255,255,0.14)]
-            `
-            : `
-              border-white/15
-              bg-[linear-gradient(180deg,rgba(59,130,246,0.10)_0%,rgba(255,255,255,0.02)_42%,rgba(255,255,255,0)_68%),#0b192e]
-              shadow-[inset_0_1px_0_rgba(255,255,255,0.12),0_8px_30px_rgba(0,0,0,0.18)]
-            `
-        }
-      `}
-    >
-      {/* Glossy top reflection */}
-      <span
-        aria-hidden="true"
-        className="
-          pointer-events-none absolute
-          left-[5%] right-[5%] top-0
-          h-px bg-gradient-to-r
-          from-transparent via-white/35 to-transparent
-        "
-      />
-
-      <nav
-        aria-label="Main navigation"
-        className="
-          relative mx-auto flex h-full w-full
-          max-w-[1500px] items-center
-          justify-between gap-5
-          px-4 sm:px-6 lg:px-8
-        "
-      >
-        {/* Brand */}
-        <Link
-          href="#home"
-          onClick={closeMenu}
-          aria-label="Go to RUMUNA homepage"
-          className="
-            group flex min-w-0 shrink-0
-            items-center rounded-sm
-            outline-none
-            focus-visible:ring-2
-            focus-visible:ring-[#E2C66E]
-            focus-visible:ring-offset-4
-            focus-visible:ring-offset-[#071A33]
-          "
-        >
-          {/* Logo */}
-          <div
-            className="
-              relative h-[58px] w-[58px]
-              shrink-0 overflow-hidden rounded-full
-              border border-[#3b82f6]/50
-              bg-white/5
-              shadow-[0_0_25px_rgba(29,78,216,0.18)]
-              transition-all duration-500
-              group-hover:border-[#60a5fa]
-              group-hover:shadow-[0_0_30px_rgba(59,130,246,0.35)]
-              motion-reduce:transition-none
-              sm:h-[64px] sm:w-[64px]
-              md:h-[70px] md:w-[70px]
-            "
-          >
-            <Image
-              src="/rumuna-logo.png"
-              alt="Rajshahi University Model United Nations Association logo"
-              fill
-              priority
-              sizes="(max-width: 640px) 58px, (max-width: 768px) 64px, 70px"
-              className="
-                object-contain
-                transition-transform duration-500
-                group-hover:scale-105
-                motion-reduce:transform-none
-                motion-reduce:transition-none
-              "
-            />
-          </div>
-
-          {/* Desktop divider */}
-          <span
-            aria-hidden="true"
-            className="
-              mx-4 hidden h-12 w-px shrink-0
-              bg-gradient-to-b from-transparent
-              via-[#3b82f6]/80 to-transparent
-              sm:block md:h-14
-            "
-          />
-
-          {/* Desktop organization name */}
-          <div className="hidden max-w-[315px] sm:block">
-            <p
-              className="
-                font-serif text-[17px] font-semibold
-                uppercase leading-[1.2]
-                tracking-[0.075em] text-white
-                md:text-[19px]
-              "
-            >
-              Rajshahi University
-            </p>
-
-            <p
-              className="
-                mt-1 font-serif text-[13px]
-                font-medium uppercase
-                leading-[1.25] tracking-[0.065em]
-                text-white/80 md:text-[15px]
-              "
-            >
-              Model United Nations Association
-            </p>
-          </div>
-
-          {/* Mobile organization name */}
-          <div className="ml-3 sm:hidden">
-            <p
-              className="
-                font-serif text-[17px] font-semibold
-                uppercase leading-[1.2]
-                tracking-[0.075em] text-white
-                md:text-[19px]
-              "
-            >
-              Rajshahi University
-            </p>
-
-            <p
-              className="
-                mt-1 font-serif text-[13px]
-                font-medium uppercase
-                leading-[1.25] tracking-[0.065em]
-                text-white/80 md:text-[15px]
-              "
-            >
-              Model United Nations Association
-            </p>
-          </div>
-        </Link>
-
-        {/* Desktop navigation */}
-        <div className="hidden h-full items-center xl:flex">
-          {navigation.map((item) => (
-            <div
-              key={item.name}
-              className="
-                group relative flex h-full
-                items-center
-              "
-            >
-              <Link
-                href={item.href}
-                aria-haspopup={
-                  item.dropdown ? "true" : undefined
-                }
-                className="
-                  relative flex h-full items-center
-                  gap-1.5 px-2.5
-                  text-[12px] font-semibold
-                  uppercase tracking-[0.055em]
-                  text-white/85 outline-none
-                  transition-colors duration-300
-                  hover:text-[#93c5fd]
-                  focus-visible:text-[#93c5fd]
-                  motion-reduce:transition-none
-                "
-              >
-                <span>{item.name}</span>
-
-                {item.dropdown && (
-                  <FiChevronDown
-                    aria-hidden="true"
-                    className="
-                      text-[14px]
-                      transition-transform duration-300
-                      group-hover:rotate-180
-                      group-focus-within:rotate-180
-                      motion-reduce:transition-none
-                    "
-                  />
-                )}
-
-                {/* Royal hover line */}
-                <span
-                  aria-hidden="true"
-                  className="
-                    absolute inset-x-2.5 bottom-[24px]
-                    h-[2px] origin-center scale-x-0
-                    bg-gradient-to-r
-                    from-transparent via-[#3b82f6]
-                    to-transparent
-                    transition-transform duration-300
-                    group-hover:scale-x-100
-                    group-focus-within:scale-x-100
-                    motion-reduce:transition-none
-                  "
-                />
-              </Link>
-
-              {/* Desktop dropdown */}
-              {item.dropdown && (
-                <div
-                  className="
-                    invisible absolute left-1/2
-                    top-[calc(100%-1px)]
-                    w-[250px] -translate-x-1/2
-                    translate-y-3
-                    border border-slate-200/80
-                    border-t-2 border-t-[#1d4ed8]
-                    bg-white p-2 opacity-0
-                    shadow-[0_22px_60px_rgba(15,23,42,0.18)]
-                    transition-all duration-300
-                    group-hover:visible
-                    group-hover:translate-y-0
-                    group-hover:opacity-100
-                    group-focus-within:visible
-                    group-focus-within:translate-y-0
-                    group-focus-within:opacity-100
-                    motion-reduce:transition-none
-                  "
-                >
-                  {item.dropdown.map((dropdownItem) => (
-                    <Link
-                      key={dropdownItem.name}
-                      href={dropdownItem.href}
-                      className="
-                        group/dropdown relative flex
-                        min-h-[48px] items-center
-                        overflow-hidden
-                        border-b border-slate-100
-                        bg-white px-4 py-3
-                        text-[14px] font-semibold
-                        tracking-[0.02em]
-                        !text-[#0f172a] outline-none
-                        transition-all duration-300
-                        last:border-b-0
-                        hover:bg-[#eff6ff]
-                        hover:!text-[#1d4ed8]
-                        focus-visible:bg-[#eff6ff]
-                        focus-visible:!text-[#1d4ed8]
-                        motion-reduce:transition-none
-                      "
-                    >
-                      <span
-                        aria-hidden="true"
-                        className="
-                          absolute bottom-2 left-0 top-2
-                          w-[3px] scale-y-0
-                          bg-[#1d4ed8]
-                          transition-transform duration-300
-                          group-hover/dropdown:scale-y-100
-                          group-focus-visible/dropdown:scale-y-100
-                          motion-reduce:transition-none
-                        "
-                      />
-
-                      <span
-                        className="
-                          transition-transform duration-300
-                          group-hover/dropdown:translate-x-1
-                          group-focus-visible/dropdown:translate-x-1
-                          motion-reduce:transition-none
-                        "
-                      >
-                        {dropdownItem.name}
-                      </span>
-                    </Link>
-                  ))}
-                </div>
-              )}
-            </div>
-          ))}
-
-          <Link
-            href="#register"
-            className="
-              formal-button ml-4 inline-flex
-              min-h-11 items-center justify-center
-              px-5 py-3 text-[12px] font-bold
-              uppercase tracking-[0.09em]
-              outline-none
-              focus-visible:ring-2
-              focus-visible:ring-white
-              focus-visible:ring-offset-2
-              focus-visible:ring-offset-[#071A33]
-            "
-          >
-            Register
-          </Link>
-        </div>
-
-        {/* Mobile menu button */}
-        <button
-          type="button"
-          aria-label={
-            mobileMenuOpen
-              ? "Close navigation menu"
-              : "Open navigation menu"
+    <header className="fixed inset-x-0 top-0 z-50 pointer-events-none transition-all duration-300">
+      {/* Full-width Rectangular Container */}
+      <div
+        className={`
+          pointer-events-auto w-full
+          transition-all duration-400
+          ${
+            isScrolled
+              ? "bg-[#060e1a]/95 backdrop-blur-2xl border-b border-white/[0.10] shadow-[0_8px_32px_rgba(0,0,0,0.55),0_0_20px_rgba(59,130,246,0.06)]"
+              : "bg-[#0b192e]/90 backdrop-blur-xl border-b border-white/[0.06] shadow-[0_4px_20px_rgba(0,0,0,0.3)]"
           }
-          aria-expanded={mobileMenuOpen}
-          aria-controls="mobile-navigation"
-          onClick={toggleMobileMenu}
-          className="
-            relative flex h-11 w-11 shrink-0
-            items-center justify-center
-            overflow-hidden
-            border border-white/20
-            bg-white/5 text-[23px] text-white
-            outline-none
-            transition-all duration-300
-            hover:border-[#C8A443]
-            hover:bg-[#C8A443]/10
-            hover:text-[#E2C66E]
-            focus-visible:border-[#E2C66E]
-            focus-visible:ring-2
-            focus-visible:ring-[#E2C66E]
-            motion-reduce:transition-none
-            xl:hidden
-          "
+        `}
+      >
+        {/* Top ambient highlight shimmer ray */}
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-x-0 top-0 h-[1px] bg-gradient-to-r from-transparent via-[#60a5fa]/50 to-transparent"
+        />
+
+        <nav
+          aria-label="Main navigation"
+          className="relative flex h-[68px] md:h-[74px] items-center justify-between gap-3 px-4 sm:px-8 lg:px-12 xl:px-16 section-container"
         >
-          <span
-            className={`
-              absolute transition-all duration-300
-              motion-reduce:transition-none
-              ${
+          {/* Brand Identity — Two-line layout */}
+          <Link
+            href="#home"
+            onClick={closeMenu}
+            aria-label="Go to RUMUNA homepage"
+            className="group flex min-w-0 shrink-0 items-center gap-3 rounded-lg outline-none focus-visible:ring-2 focus-visible:ring-[#3b82f6] focus-visible:ring-offset-2 focus-visible:ring-offset-[#060e1a]"
+          >
+            {/* Logo Ring with Refined Royal-to-Gold Gradient */}
+            <div className="relative h-10 w-10 sm:h-12 sm:w-12 shrink-0 rounded-full p-[2px] bg-gradient-to-tr from-[#1d4ed8] via-[#60a5fa] to-[#d4af37] shadow-lg shadow-blue-950/60 transition-transform duration-300 group-hover:scale-105">
+              <div className="relative h-full w-full overflow-hidden rounded-full bg-[#040914]">
+                <Image
+                  src="/rumuna-logo.png"
+                  alt="RUMUNA Logo"
+                  fill
+                  priority
+                  sizes="48px"
+                  className="object-contain p-0.5"
+                />
+              </div>
+            </div>
+
+            {/* Brand Typography — Two-line */}
+            <div className="flex flex-col justify-center leading-tight">
+              <span className="text-[11px] sm:text-[12px] font-bold uppercase tracking-[0.12em] text-[#93c5fd] group-hover:text-white transition-colors duration-200">
+                Rajshahi University
+              </span>
+              <span className="text-[9px] sm:text-[10px] font-medium tracking-[0.03em] text-blue-200/65 group-hover:text-blue-200/90 transition-colors duration-200 leading-snug max-w-[200px] sm:max-w-none">
+                Model United Nations Association
+              </span>
+            </div>
+          </Link>
+
+          {/* Desktop Navigation Links */}
+          <div className="hidden h-full items-center xl:flex xl:gap-1 2xl:gap-1.5">
+            {navigation.map((item) => {
+              const itemSection = item.href.replace("#", "");
+              const isActive = activeSection === itemSection;
+
+              return (
+                <div
+                  key={item.name}
+                  className="group relative flex h-full items-center"
+                >
+                  <Link
+                    href={item.href}
+                    aria-haspopup={item.dropdown ? "true" : undefined}
+                    className={`
+                      relative flex items-center gap-1.5 px-3.5 py-1.5
+                      rounded-lg text-[13px] font-semibold tracking-[0.02em]
+                      outline-none transition-all duration-200
+                      ${
+                        isActive
+                          ? "bg-[#3b82f6]/20 text-[#60a5fa] font-bold border border-[#3b82f6]/40 shadow-[0_0_12px_rgba(59,130,246,0.25)]"
+                          : "text-[#60a5fa]/80 hover:text-[#93c5fd] hover:bg-[#3b82f6]/10"
+                      }
+                      focus-visible:ring-2 focus-visible:ring-[#3b82f6]
+                    `}
+                  >
+                    <span>{item.name}</span>
+
+                    {item.dropdown && (
+                      <FiChevronDown
+                        aria-hidden="true"
+                        className="text-[12px] text-blue-300 transition-transform duration-250 group-hover:rotate-180"
+                      />
+                    )}
+                  </Link>
+
+                  {/* Modern Luxury Desktop Dropdown Card */}
+                  {item.dropdown && (
+                    <div className="invisible pointer-events-none absolute left-1/2 top-full -translate-x-1/2 pt-2.5 opacity-0 transition-all duration-200 ease-out group-hover:visible group-hover:pointer-events-auto group-hover:opacity-100 group-focus-within:visible group-focus-within:pointer-events-auto group-focus-within:opacity-100">
+                      <div className="w-[310px] overflow-hidden rounded-2xl border border-white/10 bg-[#060e1a]/95 p-2.5 backdrop-blur-2xl shadow-[0_24px_60px_rgba(0,0,0,0.75),0_0_30px_rgba(59,130,246,0.18)] ring-1 ring-white/5">
+                        {/* Dropdown top diplomatic accent bar */}
+                        <div className="mb-2 h-[2px] w-full rounded-full bg-gradient-to-r from-blue-500 via-sky-400 to-amber-400/80" />
+
+                        <div className="space-y-1">
+                          {item.dropdown.map((dropdownItem) => (
+                            <Link
+                              key={dropdownItem.name}
+                              href={dropdownItem.href}
+                              className="group/item flex items-center justify-between rounded-xl px-3.5 py-2.5 text-left outline-none transition-all duration-200 hover:bg-gradient-to-r hover:from-blue-600/25 hover:to-indigo-600/15 focus-visible:bg-blue-600/25"
+                            >
+                              <div className="pr-2">
+                                <p className="text-[13px] font-semibold text-slate-100 group-hover/item:text-white transition-colors">
+                                  {dropdownItem.name}
+                                </p>
+                                {dropdownItem.description && (
+                                  <p className="mt-0.5 text-[11px] leading-tight text-blue-200/60 group-hover/item:text-blue-200/85 transition-colors">
+                                    {dropdownItem.description}
+                                  </p>
+                                )}
+                              </div>
+
+                              <FiArrowRight
+                                aria-hidden="true"
+                                className="shrink-0 text-[13px] text-blue-400 opacity-0 -translate-x-1.5 transition-all duration-200 group-hover/item:opacity-100 group-hover/item:translate-x-0"
+                              />
+                            </Link>
+                          ))}
+                        </div>
+                      </div>
+                    </div>
+                  )}
+                </div>
+              );
+            })}
+          </div>
+
+          {/* Desktop Right CTA Button */}
+          <div className="hidden items-center gap-3 xl:flex">
+            <Link
+              href="#register"
+              className="
+                group relative inline-flex items-center justify-center gap-1.5
+                overflow-hidden rounded-full
+                bg-gradient-to-r from-[#1d4ed8] via-[#2563eb] to-[#3b82f6]
+                px-5 py-2.5 text-[12px] font-bold uppercase tracking-[0.1em] text-white
+                shadow-[0_0_24px_rgba(37,99,235,0.45),inset_0_1px_0_rgba(255,255,255,0.25)]
+                border border-blue-400/35
+                transition-all duration-300
+                hover:shadow-[0_0_35px_rgba(59,130,246,0.65)]
+                hover:scale-[1.03]
+                active:scale-[0.98]
+                outline-none
+                focus-visible:ring-2
+                focus-visible:ring-[#3b82f6]
+                focus-visible:ring-offset-2
+                focus-visible:ring-offset-[#060e1a]
+              "
+            >
+              {/* Glossy sweep effect */}
+              <span
+                aria-hidden="true"
+                className="absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/30 to-transparent transition-transform duration-700 group-hover:translate-x-full"
+              />
+              <span>Register</span>
+              <FiArrowUpRight
+                aria-hidden="true"
+                className="text-[14px] transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+              />
+            </Link>
+          </div>
+
+          {/* Mobile Hamburger Toggle Button */}
+          <button
+            type="button"
+            aria-label={
+              mobileMenuOpen
+                ? "Close navigation menu"
+                : "Open navigation menu"
+            }
+            aria-expanded={mobileMenuOpen}
+            aria-controls="mobile-navigation"
+            onClick={toggleMobileMenu}
+            className="
+              relative flex h-10 w-10 shrink-0 items-center justify-center
+              rounded-full border border-white/15 bg-white/5 text-[20px] text-white
+              outline-none transition-all duration-200
+              hover:border-blue-400 hover:bg-blue-600/20 hover:text-blue-200
+              focus-visible:ring-2 focus-visible:ring-[#3b82f6]
+              xl:hidden
+            "
+          >
+            <span
+              className={`absolute transition-all duration-300 ${
                 mobileMenuOpen
                   ? "rotate-90 scale-75 opacity-0"
                   : "rotate-0 scale-100 opacity-100"
-              }
-            `}
-          >
-            <FiMenu aria-hidden="true" />
-          </span>
+              }`}
+            >
+              <FiMenu aria-hidden="true" />
+            </span>
 
-          <span
-            className={`
-              absolute transition-all duration-300
-              motion-reduce:transition-none
-              ${
+            <span
+              className={`absolute transition-all duration-300 ${
                 mobileMenuOpen
                   ? "rotate-0 scale-100 opacity-100"
                   : "-rotate-90 scale-75 opacity-0"
-              }
-            `}
-          >
-            <FiX aria-hidden="true" />
-          </span>
-        </button>
-      </nav>
+              }`}
+            >
+              <FiX aria-hidden="true" />
+            </span>
+          </button>
+        </nav>
+      </div>
 
-      {/* Mobile background overlay */}
-      {mobileMenuOpen && (
-        <button
-          type="button"
-          aria-label="Close navigation menu"
-          onClick={closeMenu}
-          className="
-            fixed inset-x-0 bottom-0 top-[76px]
-            -z-10 cursor-default
-            bg-[#020817]/65 backdrop-blur-sm
-            md:top-[88px] xl:hidden
-          "
-        />
-      )}
-
-      {/* Mobile navigation */}
+      {/* Mobile Drawer Sheet */}
       <div
         id="mobile-navigation"
         aria-hidden={!mobileMenuOpen}
         className={`
-          absolute inset-x-0 top-full
-          max-h-[calc(100dvh-76px)]
-          overflow-y-auto overscroll-contain
-          border-t border-white/10
-          bg-[#071A33]/98
-          shadow-[0_24px_50px_rgba(0,0,0,0.35)]
-          backdrop-blur-xl
-          transition-all duration-300
-          motion-reduce:transition-none
-          md:max-h-[calc(100dvh-88px)]
+          pointer-events-auto mx-auto mt-2 max-w-[1440px]
+          overflow-hidden rounded-3xl
+          border border-white/10 bg-[#060e1a]/98
+          backdrop-blur-2xl shadow-[0_24px_60px_rgba(0,0,0,0.7)]
+          transition-all duration-300 ease-out
           xl:hidden
           ${
             mobileMenuOpen
-              ? "visible translate-y-0 opacity-100"
-              : "invisible -translate-y-4 opacity-0"
+              ? "max-h-[calc(100dvh-90px)] opacity-100 translate-y-0"
+              : "max-h-0 opacity-0 -translate-y-3 pointer-events-none border-transparent"
           }
         `}
       >
-        <div
-          className="
-            mx-auto max-w-3xl
-            px-4 pb-7 pt-3 sm:px-6
-          "
-        >
-          {navigation.map((item) => (
-            <div
-              key={item.name}
-              className="
-                border-b border-white/10
-                last:border-b-0
-              "
-            >
-              <div className="flex items-center">
-                <Link
-                  href={item.href}
-                  onClick={closeMenu}
-                  tabIndex={mobileMenuOpen ? 0 : -1}
-                  className="
-                    flex min-h-12 flex-1 items-center
-                    py-4 text-[13px] font-semibold
-                    uppercase tracking-[0.08em]
-                    text-white/85 outline-none
-                    transition-colors duration-300
-                    hover:text-[#E2C66E]
-                    focus-visible:text-[#E2C66E]
-                    motion-reduce:transition-none
-                  "
-                >
-                  {item.name}
-                </Link>
+        <div className="max-h-[calc(100dvh-110px)] overflow-y-auto overscroll-contain p-4 sm:p-6 space-y-1.5">
+          {navigation.map((item) => {
+            const itemSection = item.href.replace("#", "");
+            const isActive = activeSection === itemSection;
+            const Icon = item.icon;
 
-                {item.dropdown && (
-                  <button
-                    type="button"
-                    aria-label={`Toggle ${item.name} submenu`}
-                    aria-expanded={
-                      activeDropdown === item.name
-                    }
-                    aria-controls={`mobile-${item.name
-                      .toLowerCase()
-                      .replace(/\s+/g, "-")}-submenu`}
+            return (
+              <div
+                key={item.name}
+                className="rounded-2xl overflow-hidden border border-white/[0.05] bg-white/[0.02]"
+              >
+                <div className="flex items-center justify-between">
+                  <Link
+                    href={item.href}
+                    onClick={closeMenu}
                     tabIndex={mobileMenuOpen ? 0 : -1}
-                    onClick={() =>
-                      toggleDropdown(item.name)
-                    }
-                    className="
-                      flex h-12 w-12 items-center
-                      justify-center text-[19px]
-                      text-[#E2C66E] outline-none
-                      transition-colors duration-300
-                      hover:bg-white/5
-                      focus-visible:bg-white/10
-                      focus-visible:ring-2
-                      focus-visible:ring-inset
-                      focus-visible:ring-[#E2C66E]
-                      motion-reduce:transition-none
-                    "
+                    className={`
+                      flex flex-1 items-center gap-3 px-4 py-3.5 text-[14px] font-semibold
+                      transition-colors
+                      ${
+                        isActive
+                          ? "text-blue-300 font-bold bg-blue-600/15"
+                          : "text-slate-200 hover:text-white"
+                      }
+                    `}
                   >
-                    <FiChevronDown
-                      aria-hidden="true"
-                      className={`
-                        transition-transform duration-300
-                        motion-reduce:transition-none
-                        ${
-                          activeDropdown === item.name
-                            ? "rotate-180"
-                            : "rotate-0"
-                        }
-                      `}
-                    />
-                  </button>
-                )}
-              </div>
+                    {Icon && (
+                      <Icon
+                        aria-hidden="true"
+                        className="text-base text-blue-400"
+                      />
+                    )}
+                    <span>{item.name}</span>
+                  </Link>
 
-              {/* Mobile submenu */}
-              {item.dropdown && (
-                <div
-                  id={`mobile-${item.name
-                    .toLowerCase()
-                    .replace(/\s+/g, "-")}-submenu`}
-                  className={`
-                    grid transition-all duration-300
-                    motion-reduce:transition-none
-                    ${
-                      activeDropdown === item.name
-                        ? "grid-rows-[1fr] pb-3 opacity-100"
-                        : "grid-rows-[0fr] opacity-0"
-                    }
-                  `}
-                >
-                  <div className="overflow-hidden">
-                    <div
-                      className="
-                        border-l-2
-                        border-[#C8A443]/60
-                        bg-white/[0.035]
-                        py-1 pl-4
-                      "
+                  {item.dropdown && (
+                    <button
+                      type="button"
+                      aria-label={`Toggle ${item.name} submenu`}
+                      aria-expanded={activeDropdown === item.name}
+                      tabIndex={mobileMenuOpen ? 0 : -1}
+                      onClick={() => toggleDropdown(item.name)}
+                      className="flex h-12 w-12 items-center justify-center text-blue-400 hover:bg-white/5 transition-colors"
                     >
-                      {item.dropdown.map(
-                        (dropdownItem) => (
+                      <FiChevronDown
+                        aria-hidden="true"
+                        className={`text-lg transition-transform duration-250 ${
+                          activeDropdown === item.name ? "rotate-180" : ""
+                        }`}
+                      />
+                    </button>
+                  )}
+                </div>
+
+                {/* Mobile Submenu Accordion */}
+                {item.dropdown && (
+                  <div
+                    className={`grid transition-all duration-300 ease-out ${
+                      activeDropdown === item.name
+                        ? "grid-rows-[1fr] opacity-100 pb-2.5"
+                        : "grid-rows-[0fr] opacity-0"
+                    }`}
+                  >
+                    <div className="overflow-hidden">
+                      <div className="mx-3 mt-1 space-y-1 rounded-xl border-l-2 border-blue-500 bg-white/[0.03] p-2 pl-3">
+                        {item.dropdown.map((dropdownItem) => (
                           <Link
                             key={dropdownItem.name}
                             href={dropdownItem.href}
                             onClick={closeMenu}
                             tabIndex={
-                              mobileMenuOpen &&
-                              activeDropdown === item.name
+                              mobileMenuOpen && activeDropdown === item.name
                                 ? 0
                                 : -1
                             }
-                            className="
-                              flex min-h-11 items-center
-                              py-3 text-[13px]
-                              font-medium text-white/65
-                              outline-none
-                              transition-all duration-300
-                              hover:translate-x-1
-                              hover:text-[#E2C66E]
-                              focus-visible:translate-x-1
-                              focus-visible:text-[#E2C66E]
-                              motion-reduce:transform-none
-                              motion-reduce:transition-none
-                            "
+                            className="block rounded-lg px-3 py-2.5 transition-colors hover:bg-blue-600/20"
                           >
-                            {dropdownItem.name}
+                            <p className="text-[13px] font-semibold text-slate-100">
+                              {dropdownItem.name}
+                            </p>
+                            {dropdownItem.description && (
+                              <p className="text-[11px] text-blue-200/60 leading-tight mt-0.5">
+                                {dropdownItem.description}
+                              </p>
+                            )}
                           </Link>
-                        ),
-                      )}
+                        ))}
+                      </div>
                     </div>
                   </div>
-                </div>
-              )}
-            </div>
-          ))}
+                )}
+              </div>
+            );
+          })}
 
-          <Link
-            href="#register"
-            onClick={closeMenu}
-            tabIndex={mobileMenuOpen ? 0 : -1}
-            className="
-              formal-button mt-6 flex min-h-12
-              w-full items-center justify-center
-              px-6 py-3.5 text-center
-              text-[13px] font-bold uppercase
-              tracking-[0.1em] outline-none
-              focus-visible:ring-2
-              focus-visible:ring-white
-              focus-visible:ring-offset-2
-              focus-visible:ring-offset-[#071A33]
-            "
-          >
-            Register Now
-          </Link>
+          {/* Mobile Action Buttons */}
+          <div className="pt-4 space-y-3">
+            <Link
+              href="#register"
+              onClick={closeMenu}
+              tabIndex={mobileMenuOpen ? 0 : -1}
+              className="
+                flex w-full items-center justify-center gap-2
+                rounded-2xl bg-gradient-to-r from-[#1d4ed8] via-[#2563eb] to-[#3b82f6]
+                py-3.5 text-[13px] font-bold uppercase tracking-[0.1em] text-white
+                shadow-[0_0_25px_rgba(37,99,235,0.45)]
+              "
+            >
+              <span>Register Now</span>
+              <FiArrowUpRight aria-hidden="true" className="text-base" />
+            </Link>
 
-          <p
-            className="
-              mt-5 text-center text-[10px]
-              uppercase tracking-[0.14em]
-              text-white/40
-            "
-          >
-            Leadership • Diplomacy • Global Dialogue
-          </p>
+            <p className="text-center text-[10px] uppercase tracking-[0.22em] text-blue-300/50 pt-2">
+              Diplomacy • Leadership • Global Dialogue
+            </p>
+          </div>
         </div>
       </div>
+
+      {/* Mobile Backdrop Overlay */}
+      {mobileMenuOpen && (
+        <div
+          onClick={closeMenu}
+          aria-hidden="true"
+          className="fixed inset-0 -z-10 bg-black/70 backdrop-blur-sm xl:hidden"
+        />
+      )}
     </header>
   );
 }

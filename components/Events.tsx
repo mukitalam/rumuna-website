@@ -39,27 +39,27 @@ function EventCard({
       }
       viewport={{ once: true, amount: 0.15 }}
       transition={{
-        duration: 0.6,
-        delay: shouldReduceMotion ? 0 : index * 0.1,
-        ease: "easeOut" as const,
+        duration: 0.65,
+        delay: shouldReduceMotion ? 0 : index * 0.12,
+        ease: [0.16, 1, 0.3, 1],
       }}
       className="
-        group flex h-full flex-col
-        overflow-hidden
+        formal-card group flex h-full flex-col
+        overflow-hidden rounded-3xl
         border border-slate-200/90
         bg-white
-        shadow-[0_15px_45px_rgba(7,26,51,0.08)]
+        shadow-[0_15px_45px_rgba(6,14,26,0.06)]
         transition-all duration-500
-        hover:-translate-y-1.5
-        hover:border-[#C8A443]/55
-        hover:shadow-[0_25px_65px_rgba(7,26,51,0.14)]
+        hover:-translate-y-2.5
+        hover:border-[#3b82f6]/50
+        hover:shadow-[0_28px_65px_rgba(29,78,216,0.15)]
       "
     >
-      {/* Event image */}
+      {/* Event image container */}
       <div
         className="
           relative aspect-[16/11]
-          overflow-hidden bg-slate-200
+          overflow-hidden bg-[#060e1a]
         "
       >
         <Image
@@ -75,8 +75,8 @@ function EventCard({
           className="
             object-cover object-center
             transition-transform
-            duration-700 ease-out
-            group-hover:scale-[1.05]
+            duration-1000 ease-out
+            group-hover:scale-[1.06]
           "
         />
 
@@ -85,8 +85,8 @@ function EventCard({
           className="
             absolute inset-0
             bg-gradient-to-t
-            from-[#041126]/80
-            via-[#071A33]/10
+            from-[#060e1a]/95
+            via-[#060e1a]/25
             to-transparent
           "
         />
@@ -95,15 +95,17 @@ function EventCard({
         <span
           className="
             absolute left-5 top-5
-            border-l-[3px]
-            border-[#071A33]
-            bg-[#D9B94E]
-            px-4 py-2
-            text-[9px] font-extrabold
+            rounded-full
+            border border-[#d4af37]/45
+            ring-1 ring-[#d4af37]/20
+            bg-[#060e1a]/92
+            px-4 py-1.5
+            text-[10px] font-bold
             uppercase tracking-[0.16em]
-            text-[#071A33]
-            shadow-[0_8px_22px_rgba(0,0,0,0.16)]
-            sm:text-[10px]
+            text-[#f3e5ab]
+            backdrop-blur-xl
+            shadow-[0_8px_28px_rgba(0,0,0,0.5),0_0_15px_rgba(212,175,55,0.12),inset_0_1px_0_rgba(255,255,255,0.18)]
+            sm:text-[11px]
           "
         >
           {event.category}
@@ -115,13 +117,13 @@ function EventCard({
             absolute bottom-5 left-5
             right-16 flex items-center gap-2
             text-[10px] font-bold
-            uppercase tracking-[0.13em]
+            uppercase tracking-[0.16em]
             text-white sm:text-[11px]
           "
         >
           <FiCalendar
             aria-hidden="true"
-            className="shrink-0 text-[#E2C66E]"
+            className="shrink-0 text-[#93c5fd]"
           />
 
           <time dateTime={event.dateTime}>
@@ -129,13 +131,13 @@ function EventCard({
           </time>
         </div>
 
-        {/* Event number */}
+        {/* Event index watermark */}
         <span
           aria-hidden="true"
           className="
             absolute bottom-4 right-5
             font-serif text-4xl
-            font-bold text-white/25
+            font-bold text-white/20
           "
         >
           {String(index + 1).padStart(2, "0")}
@@ -146,28 +148,17 @@ function EventCard({
       <div
         className="
           relative flex flex-1
-          flex-col p-5
-          sm:p-7
+          flex-col p-6 sm:p-7
         "
       >
-        <div
-          aria-hidden="true"
-          className="
-            absolute right-0 top-0
-            h-14 w-14
-            border-b border-l
-            border-[#C8A443]/25
-          "
-        />
-
         <h3
           className="
             relative pr-5
             font-serif text-[23px]
             font-bold leading-[1.25]
-            text-[#071A33]
+            text-[#060e1a]
             transition-colors duration-300
-            group-hover:text-[#9F7B20]
+            group-hover:text-[#1d4ed8]
             sm:text-[26px]
           "
         >
@@ -177,9 +168,9 @@ function EventCard({
         <p
           className="
             mt-4 flex-1
-            text-[13px] leading-7
+            text-[14px] leading-7
             text-slate-600
-            sm:text-[14px]
+            sm:text-[15px]
           "
         >
           {event.description}
@@ -189,23 +180,26 @@ function EventCard({
         <div
           className="
             mt-6 space-y-3
-            border-y border-slate-200
+            border-y border-slate-100
             py-5
           "
         >
           <div
             className="
               flex items-start gap-3
-              text-[12px] text-slate-600
-              sm:text-[13px]
+              text-[13px] text-slate-600
             "
           >
             <span
               className="
                 flex h-8 w-8 shrink-0
-                items-center justify-center
-                bg-[#C8A443]/12
-                text-[#9F7B20]
+                items-center justify-center rounded-xl
+                bg-[#1d4ed8]/10
+                text-[#1d4ed8]
+                transition-all duration-300
+                group-hover:bg-[#1d4ed8]
+                group-hover:text-white
+                group-hover:shadow-[0_0_18px_rgba(29,78,216,0.5)]
               "
             >
               <FiClock aria-hidden="true" />
@@ -213,7 +207,7 @@ function EventCard({
 
             <time
               dateTime={event.startDateTime}
-              className="pt-1 leading-6"
+              className="pt-1 font-semibold leading-6 text-slate-800"
             >
               {event.time}
             </time>
@@ -222,22 +216,25 @@ function EventCard({
           <div
             className="
               flex items-start gap-3
-              text-[12px] text-slate-600
-              sm:text-[13px]
+              text-[13px] text-slate-600
             "
           >
             <span
               className="
                 flex h-8 w-8 shrink-0
-                items-center justify-center
-                bg-[#C8A443]/12
-                text-[#9F7B20]
+                items-center justify-center rounded-xl
+                bg-[#1d4ed8]/10
+                text-[#1d4ed8]
+                transition-all duration-300
+                group-hover:bg-[#1d4ed8]
+                group-hover:text-white
+                group-hover:shadow-[0_0_18px_rgba(29,78,216,0.5)]
               "
             >
               <FiMapPin aria-hidden="true" />
             </span>
 
-            <span className="pt-1 leading-6">
+            <span className="pt-1 font-semibold leading-6 text-slate-800">
               {event.location}
             </span>
           </div>
@@ -251,10 +248,10 @@ function EventCard({
             inline-flex w-fit
             items-center gap-2
             text-[11px] font-bold
-            uppercase tracking-[0.12em]
-            text-[#071A33]
+            uppercase tracking-[0.14em]
+            text-[#1d4ed8]
             transition-colors duration-300
-            hover:text-[#9F7B20]
+            hover:text-[#1e3a8a]
           "
         >
           <span>Event Details</span>
@@ -262,27 +259,13 @@ function EventCard({
           <FiArrowRight
             aria-hidden="true"
             className="
-              text-base text-[#9F7B20]
+              text-base text-[#1d4ed8]
               transition-transform duration-300
               group-hover/link:translate-x-1.5
             "
           />
         </Link>
       </div>
-
-      {/* Hover line */}
-      <div
-        aria-hidden="true"
-        className="
-          h-[3px] w-0
-          bg-gradient-to-r
-          from-[#9F7B20]
-          via-[#E2C66E]
-          to-[#9F7B20]
-          transition-all duration-500
-          group-hover:w-full
-        "
-      />
     </motion.article>
   );
 }
@@ -300,7 +283,7 @@ export default function Events() {
       aria-labelledby="events-heading"
       className="
         section-padding relative scroll-mt-24
-        overflow-hidden bg-[#F8FAFC]
+        overflow-hidden bg-[#f8fafc]
       "
     >
       {/* Background decorations */}
@@ -309,8 +292,8 @@ export default function Events() {
         className="
           pointer-events-none absolute
           -left-40 top-20
-          h-[380px] w-[380px]
-          rounded-full bg-[#C8A443]/[0.07]
+          h-[450px] w-[450px]
+          rounded-full bg-[#3b82f6]/[0.06]
           blur-3xl
         "
       />
@@ -320,8 +303,8 @@ export default function Events() {
         className="
           pointer-events-none absolute
           -right-44 bottom-10
-          h-[440px] w-[440px]
-          rounded-full bg-[#173B68]/[0.06]
+          h-[460px] w-[460px]
+          rounded-full bg-[#1d4ed8]/[0.05]
           blur-3xl
         "
       />
@@ -341,8 +324,8 @@ export default function Events() {
           }
           viewport={{ once: true, amount: 0.3 }}
           transition={{
-            duration: 0.65,
-            ease: "easeOut" as const,
+            duration: 0.7,
+            ease: [0.16, 1, 0.3, 1],
           }}
           className="
             flex flex-col justify-between
@@ -356,14 +339,14 @@ export default function Events() {
                 className="
                   h-[2px] w-10
                   bg-gradient-to-r
-                  from-[#9F7B20] to-[#E2C66E]
+                  from-transparent to-[#1d4ed8]
                 "
               />
 
               <p
                 className="
-                  text-[10px] font-bold uppercase
-                  tracking-[0.24em] text-[#9F7B20]
+                  text-[11px] font-bold uppercase
+                  tracking-[0.22em] text-[#1d4ed8]
                   sm:text-xs
                 "
               >
@@ -377,14 +360,13 @@ export default function Events() {
                 mt-5 max-w-2xl
                 font-serif text-[34px]
                 font-bold leading-[1.1]
-                text-[#071A33]
+                text-[#060e1a]
                 sm:text-[44px]
                 lg:text-[52px]
               "
             >
               Learn, Lead and{" "}
-
-              <span className="gold-gradient-text">
+              <span className="diplomatic-title-gradient">
                 Make an Impact
               </span>
             </h2>
@@ -392,9 +374,9 @@ export default function Events() {
             <p
               className="
                 mt-5 max-w-2xl
-                text-[14px] leading-7
+                text-[15px] leading-8
                 text-slate-600
-                sm:text-[15px] sm:leading-8
+                sm:text-[16px]
               "
             >
               Join workshops, training sessions and diplomatic events designed
@@ -408,12 +390,12 @@ export default function Events() {
             className="
               group inline-flex w-fit
               items-center gap-2.5
-              border-b-2 border-[#C8A443]
+              border-b-2 border-[#1d4ed8]
               pb-2 text-[11px] font-bold
-              uppercase tracking-[0.13em]
-              text-[#071A33]
+              uppercase tracking-[0.14em]
+              text-[#060e1a]
               transition-colors duration-300
-              hover:text-[#9F7B20]
+              hover:text-[#1d4ed8]
               sm:text-xs
             "
           >
@@ -422,7 +404,7 @@ export default function Events() {
             <FiArrowRight
               aria-hidden="true"
               className="
-                text-[#9F7B20]
+                text-[#1d4ed8]
                 transition-transform duration-300
                 group-hover:translate-x-1.5
               "
@@ -430,7 +412,7 @@ export default function Events() {
           </Link>
         </motion.div>
 
-        {/* Event cards */}
+        {/* Event cards grid */}
         {visibleEvents.length > 0 ? (
           <div
             id="all-events"
@@ -455,12 +437,12 @@ export default function Events() {
           <div
             id="all-events"
             className="
-              mt-12 border border-slate-200
+              mt-12 rounded-3xl border border-slate-200
               bg-white px-6 py-14
               text-center shadow-sm
             "
           >
-            <p className="font-serif text-2xl font-bold text-[#071A33]">
+            <p className="font-serif text-2xl font-bold text-[#060e1a]">
               No Upcoming Events
             </p>
 
@@ -470,7 +452,7 @@ export default function Events() {
           </div>
         )}
 
-        {/* Bottom callout */}
+        {/* Bottom Callout banner */}
         <motion.div
           initial={
             shouldReduceMotion
@@ -484,25 +466,27 @@ export default function Events() {
           }
           viewport={{ once: true, amount: 0.25 }}
           transition={{
-            duration: 0.65,
-            ease: "easeOut" as const,
+            duration: 0.7,
+            ease: [0.16, 1, 0.3, 1],
           }}
           className="
-            relative mt-12 overflow-hidden
-            bg-[#071A33] px-6 py-8
-            shadow-[0_24px_60px_rgba(7,26,51,0.2)]
-            sm:px-9 sm:py-10
+            relative mt-12 overflow-hidden rounded-3xl
+            bg-[#060e1a] px-6 py-9
+            shadow-[0_30px_70px_rgba(6,14,26,0.4),inset_0_1px_0_rgba(255,255,255,0.12)]
+            border border-white/10
+            sm:px-10 sm:py-12
             md:flex md:items-center
             md:justify-between md:gap-8
-            lg:mt-16 lg:px-12
+            lg:mt-16 lg:px-14
           "
         >
+          {/* Ambient background rings */}
           <div
             aria-hidden="true"
             className="
               absolute -right-20 -top-24
-              h-56 w-56 rounded-full
-              border border-[#C8A443]/20
+              h-64 w-64 rounded-full
+              border border-white/10
             "
           />
 
@@ -510,8 +494,16 @@ export default function Events() {
             aria-hidden="true"
             className="
               absolute -right-8 -top-12
-              h-40 w-40 rounded-full
-              border border-[#C8A443]/15
+              h-44 w-44 rounded-full
+              border border-[#3b82f6]/20
+            "
+          />
+
+          <div
+            aria-hidden="true"
+            className="
+              pointer-events-none absolute inset-0
+              bg-[radial-gradient(circle_at_80%_50%,rgba(59,130,246,0.22),transparent_50%)]
             "
           />
 
@@ -519,7 +511,7 @@ export default function Events() {
             <p
               className="
                 text-[10px] font-bold uppercase
-                tracking-[0.22em] text-[#E2C66E]
+                tracking-[0.22em] text-[#f3e5ab]
                 sm:text-[11px]
               "
             >
@@ -539,9 +531,8 @@ export default function Events() {
             <p
               className="
                 mt-3 max-w-xl
-                text-[13px] leading-6
-                text-white/65
-                sm:text-[14px]
+                text-[14px] leading-7
+                text-slate-300
               "
             >
               Connect with an ambitious community of students and develop the
@@ -555,8 +546,8 @@ export default function Events() {
               formal-button group relative
               mt-7 inline-flex min-h-12
               shrink-0 items-center
-              justify-center gap-3
-              px-7 py-3.5
+              justify-center gap-3 rounded-xl
+              px-8 py-3.5
               text-[11px] font-bold
               uppercase tracking-[0.12em]
               sm:text-xs md:mt-0
